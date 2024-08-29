@@ -101,42 +101,58 @@ This ModusToolbox project is split up into 2 subprojects, one for each processor
     <picture>
         <img src="./assets/images/MTB_Import_1.png">
     </picture>
-    &nbsp;<br>
+    <br>
+    &nbsp;
+</li>
 <li> Select 'General' – 'Existing Project into Workspace' and press 'Next'. <br>
     <picture>
         <img src="./assets/images/MTB_Import_2.png">
     </picture>
-    &nbsp;<br>
+    <br>
+    &nbsp;
+</li>
 <li> Select the archive file by pressing 'Browse…'. <br>
     <picture>
-        <img src="./assets/images/MTB_Import_3.png">
+        <img src="./assets/images/MTB_Import_3.png" >
     </picture>
-    &nbsp;<br>
+    <br>
+    &nbsp;
+</li>
 <li> Deselect the subprojects - only the main project must be ticked. Press 'Finish'. <br>
     <picture>
         <img src="./assets/images/MTB_Import_4.png">
     </picture>
-    &nbsp;<br>
+    <br>
+    &nbsp;
+</li>
 <li> Right click the 'proj_cm0p' folder and press 'Import as Project'. <br>
     <picture>
         <img src="./assets/images/MTB_Import_5.png">
     </picture>
-    &nbsp;<br>
+    <br>
+    &nbsp;
+</li>
 <li> Right click the 'proj_cm4' folder and press 'Import as Project'6. <br>
     <picture>
         <img src="./assets/images/MTB_Import_6.png">
     </picture>
-    &nbsp;<br>
+    <br>
+    &nbsp;
+</li>
 <li> Click on the main project item, wait a second until the quick view panel loads and start the 'Library Manager' on it. <br>
     <picture>
         <img src="./assets/images/MTB_Import_7.png">
     </picture>
-    &nbsp;<br>
+    <br>
+    &nbsp;
+</li>
 <li> Press the 'Update' button <br>
     <picture>
         <img src="./assets/images/MTB_Import_8.png">
     </picture>
-    &nbsp;<br>
+    <br>
+    &nbsp;
+</li>
 <li> If the update failed, try it again. If this also fails try to clean the project, before trying it again. <br>
     <picture>
         <img src="./assets/images/MTB_Import_9.png">
@@ -147,17 +163,23 @@ This ModusToolbox project is split up into 2 subprojects, one for each processor
     <picture>
         <img src="./assets/images/MTB_Import_11.png">
     </picture>
-    &nbsp;<br>
+    <br>
+    &nbsp;
+</li>
 <li> It should now be possible to build the project without errors. <br>
     <picture>
         <img src="./assets/images/MTB_Import_12.png">
     </picture>
-    &nbsp;<br>
+    <br>
+    &nbsp;
+</li>
 <li> To flash the project onto the hardware, connect the MiniProg4 Programming adapter using the 10-pin flat cable. <span style="color:red">Before the flashing can be started the 'Start' button on the BMS (right-most button as seen from the front) must be pressed AND HELD until the programming is finished!</span> Use the green play button on the bottom left - 'Quick Panel' - 'Launches' - 'IMR_SW_PSoC6_BatteryManagement Program Application (KitPro3_MiniProg4)' to initiate the process.<br>
     <picture>
         <img src="./assets/images/BMS_Connect_and_Flash.png">
     </picture>
-    &nbsp;<br>
+    <br>
+    &nbsp;
+</li>
 <li> OPTIONAL: If the debug UART is needed (status and debug messages from system) also connect the TX pin on the controller board to pin 8 of the MiniProg4 (see figure above). In ModusToolbox open a Terminal and select the COM port the Debugger is on:
     <picture>
         <img src="./assets/images/MTB_Debug_Console_1.png">
@@ -165,7 +187,9 @@ This ModusToolbox project is split up into 2 subprojects, one for each processor
     <picture>
         <img src="./assets/images/MTB_Debug_Console_2.png">
     </picture>
-    &nbsp;<br>
+    <br>
+    &nbsp;
+</li>
 </ol>
 
 
