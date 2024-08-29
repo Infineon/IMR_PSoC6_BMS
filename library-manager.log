@@ -1,0 +1,296 @@
+Loading the ModusToolbox Technology Packs and Early Access Packs
+Finished loading the ModusToolbox Technology Packs and Early Access Packs (7 ms)
+Loading the tools information
+Finished loading the tools information (15 ms)
+Loading the application in directory 'C:/Users/santeler/Documents/MTB_WS/IMR_SW_PSoC6_BatteryManagement'
+using cached data from file 'C:/Users/santeler/Documents/MTB_WS/IMR_SW_PSoC6_BatteryManagement/.mtbqueryapi'
+creating application information from 'get_app_info' data
+finished creating application information from 'get_app_info' data (52 ms)
+Finished loading the application data (4166 ms total, 4105 make)
+Loading asset repository references
+Finished loading the asset repository references (87 ms)
+Loading the manifest data
+Loading super manfiest files from all sources
+Getting manifests from remote and/or local sources
+Processing system manifest 'https://modustoolbox.infineon.com/manifests/mtb-super-manifest/v2.X/mtb-super-manifest-fv2.xml'
+Downloading super manifest file 'https://modustoolbox.infineon.com/manifests/mtb-super-manifest/v2.X/mtb-super-manifest-fv2.xml'
+Finished loading super manifest files from all sources
+Finished download of file 'https://modustoolbox.infineon.com/manifests/mtb-super-manifest/v2.X/mtb-super-manifest-fv2.xml'
+Starting to parse super manifest with URL 'https://modustoolbox.infineon.com/manifests/mtb-super-manifest/v2.X/mtb-super-manifest-fv2.xml'
+Finished parsing super manifest with URL 'https://modustoolbox.infineon.com/manifests/mtb-super-manifest/v2.X/mtb-super-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-ce-manifest/raw/v2.X/mtb-ce-manifest.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-ce-manifest/raw/v2.X/mtb-ce-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-bt-app-manifest/raw/v2.X/mtb-bt-app-manifest.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-bt-app-manifest/raw/v2.X/mtb-bt-app-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/Infineon/cce-app-manifest/raw/v2.X/cce-app-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/Altia-Marketing/altia-ce-manifest/raw/main/altia-ce-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/avnet-iotconnect/avnet-iotc-mtb-ce-manifest/raw/main/avnet-iotc-mtb-ce-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/CyberonEBU/cyberon-mtb-ce-manifest/raw/main/cyberon-mtb-ce-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/edgeimpulse/edgeimpulse-ce-manifest/raw/main/edgeimpulse-ce-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/golioth/mtb-golioth-ce-manifest/raw/main/mtb-golioth-ce-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/memfault/mtb-memfault-ce-manifest/raw/main/mtb-memfault-ce-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/RutronikSystemSolutions/rutronik-ce-manifest/raw/main/rutronik-ce-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/sensiml/sensiml-ce-manifest/raw/main/sensiml-ce-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-bsp-manifest/raw/v2.X/mtb-bsp-manifest.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-bsp-manifest/raw/v2.X/mtb-bsp-capabilities-manifest.json'
+Downloading manifest file 'https://github.com/Infineon/mtb-bsp-manifest/raw/v2.X/mtb-bsp-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-bsp-manifest/raw/v2.X/mtb-bsp-dependencies-manifest.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-bt-bsp-manifest/raw/v2.X/mtb-bt-bsp-manifest.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-bt-bsp-manifest/raw/v2.X/mtb-bt-bsp-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-bt-bsp-manifest/raw/v2.X/mtb-bt-bsp-dependencies-manifest.xml'
+Downloading manifest file 'https://github.com/Inventek/inventek-bsp-manifest/raw/main/inventek-bsp-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/Inventek/inventek-bsp-manifest/raw/main/inventek-bsp-dependencies-manifest.xml'
+Downloading manifest file 'https://github.com/RutronikSystemSolutions/rutronik-bsp-manifest/raw/main/rutronik-bsp-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/RutronikSystemSolutions/rutronik-bsp-manifest/raw/main/rutronik-bsp-dependencies-manifest.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-mw-manifest/raw/v2.X/mtb-mw-manifest.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-mw-manifest/raw/v2.X/mtb-mw-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-mw-manifest/raw/v2.X/mtb-mw-dependencies-manifest.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-bt-mw-manifest/raw/v2.X/mtb-bt-mw-manifest.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-bt-mw-manifest/raw/v2.X/mtb-bt-mw-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-bt-mw-manifest/raw/v2.X/mtb-bt-mw-dependencies-manifest.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-wifi-mw-manifest/raw/v2.X/mtb-wifi-mw-manifest.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-wifi-mw-manifest/raw/v2.X/mtb-wifi-mw-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/Infineon/mtb-wifi-mw-manifest/raw/v2.X/mtb-wifi-mw-dependencies-manifest.xml'
+Downloading manifest file 'https://github.com/avnet-iotconnect/avnet-iotc-mtb-mw-manifest/raw/main/avnet-iotc-mtb-mw-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/CyberonEBU/cyberon-mtb-mw-manifest/raw/main/cyberon-mtb-mw-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/golioth/mtb-golioth-mw-manifest/raw/main/mtb-golioth-mw-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/memfault/mtb-memfault-mw-manifest/raw/main/mtb-memfault-mw-manifest-fv2.xml'
+Downloading manifest file 'https://github.com/sensiml/sensiml-mw-manifest/raw/main/sensiml-mw-manifest-fv2.xml'
+Finished download of file 'https://github.com/Infineon/mtb-ce-manifest/raw/v2.X/mtb-ce-manifest.xml'
+Finished download of file 'https://github.com/Infineon/mtb-ce-manifest/raw/v2.X/mtb-ce-manifest-fv2.xml'
+Finished download of file 'https://github.com/Infineon/mtb-bt-app-manifest/raw/v2.X/mtb-bt-app-manifest.xml'
+Finished download of file 'https://github.com/Infineon/mtb-bt-app-manifest/raw/v2.X/mtb-bt-app-manifest-fv2.xml'
+Finished download of file 'https://github.com/Infineon/cce-app-manifest/raw/v2.X/cce-app-manifest-fv2.xml'
+Finished download of file 'https://github.com/Altia-Marketing/altia-ce-manifest/raw/main/altia-ce-manifest-fv2.xml'
+Finished download of file 'https://github.com/avnet-iotconnect/avnet-iotc-mtb-ce-manifest/raw/main/avnet-iotc-mtb-ce-manifest-fv2.xml'
+Finished download of file 'https://github.com/CyberonEBU/cyberon-mtb-ce-manifest/raw/main/cyberon-mtb-ce-manifest-fv2.xml'
+Finished download of file 'https://github.com/edgeimpulse/edgeimpulse-ce-manifest/raw/main/edgeimpulse-ce-manifest-fv2.xml'
+Finished download of file 'https://github.com/golioth/mtb-golioth-ce-manifest/raw/main/mtb-golioth-ce-manifest-fv2.xml'
+Finished download of file 'https://github.com/memfault/mtb-memfault-ce-manifest/raw/main/mtb-memfault-ce-manifest-fv2.xml'
+Finished download of file 'https://github.com/RutronikSystemSolutions/rutronik-ce-manifest/raw/main/rutronik-ce-manifest-fv2.xml'
+Finished download of file 'https://github.com/sensiml/sensiml-ce-manifest/raw/main/sensiml-ce-manifest-fv2.xml'
+Finished download of file 'https://github.com/Infineon/mtb-bsp-manifest/raw/v2.X/mtb-bsp-manifest.xml'
+Finished download of file 'https://github.com/Infineon/mtb-bsp-manifest/raw/v2.X/mtb-bsp-capabilities-manifest.json'
+Finished download of file 'https://github.com/Infineon/mtb-bsp-manifest/raw/v2.X/mtb-bsp-manifest-fv2.xml'
+Finished download of file 'https://github.com/Infineon/mtb-bsp-manifest/raw/v2.X/mtb-bsp-dependencies-manifest.xml'
+Finished download of file 'https://github.com/Infineon/mtb-bt-bsp-manifest/raw/v2.X/mtb-bt-bsp-manifest.xml'
+Finished download of file 'https://github.com/Infineon/mtb-bt-bsp-manifest/raw/v2.X/mtb-bt-bsp-manifest-fv2.xml'
+Finished download of file 'https://github.com/Infineon/mtb-bt-bsp-manifest/raw/v2.X/mtb-bt-bsp-dependencies-manifest.xml'
+Finished download of file 'https://github.com/Inventek/inventek-bsp-manifest/raw/main/inventek-bsp-manifest-fv2.xml'
+Finished download of file 'https://github.com/Inventek/inventek-bsp-manifest/raw/main/inventek-bsp-dependencies-manifest.xml'
+Finished download of file 'https://github.com/RutronikSystemSolutions/rutronik-bsp-manifest/raw/main/rutronik-bsp-manifest-fv2.xml'
+Finished download of file 'https://github.com/RutronikSystemSolutions/rutronik-bsp-manifest/raw/main/rutronik-bsp-dependencies-manifest.xml'
+Finished download of file 'https://github.com/Infineon/mtb-mw-manifest/raw/v2.X/mtb-mw-manifest.xml'
+Finished download of file 'https://github.com/Infineon/mtb-mw-manifest/raw/v2.X/mtb-mw-manifest-fv2.xml'
+Finished download of file 'https://github.com/Infineon/mtb-mw-manifest/raw/v2.X/mtb-mw-dependencies-manifest.xml'
+Finished download of file 'https://github.com/Infineon/mtb-bt-mw-manifest/raw/v2.X/mtb-bt-mw-manifest.xml'
+Finished download of file 'https://github.com/Infineon/mtb-bt-mw-manifest/raw/v2.X/mtb-bt-mw-manifest-fv2.xml'
+Finished download of file 'https://github.com/Infineon/mtb-bt-mw-manifest/raw/v2.X/mtb-bt-mw-dependencies-manifest.xml'
+Finished download of file 'https://github.com/Infineon/mtb-wifi-mw-manifest/raw/v2.X/mtb-wifi-mw-manifest.xml'
+Finished download of file 'https://github.com/Infineon/mtb-wifi-mw-manifest/raw/v2.X/mtb-wifi-mw-manifest-fv2.xml'
+Finished download of file 'https://github.com/Infineon/mtb-wifi-mw-manifest/raw/v2.X/mtb-wifi-mw-dependencies-manifest.xml'
+Finished download of file 'https://github.com/avnet-iotconnect/avnet-iotc-mtb-mw-manifest/raw/main/avnet-iotc-mtb-mw-manifest-fv2.xml'
+Finished download of file 'https://github.com/CyberonEBU/cyberon-mtb-mw-manifest/raw/main/cyberon-mtb-mw-manifest-fv2.xml'
+Finished download of file 'https://github.com/golioth/mtb-golioth-mw-manifest/raw/main/mtb-golioth-mw-manifest-fv2.xml'
+Finished download of file 'https://github.com/memfault/mtb-memfault-mw-manifest/raw/main/mtb-memfault-mw-manifest-fv2.xml'
+Finished download of file 'https://github.com/sensiml/sensiml-mw-manifest/raw/main/sensiml-mw-manifest-fv2.xml'
+Finished loading the manifest data (4956 ms)
+Loading the device db
+Finished loading the device db (5193 ms)
+WARNING:The manifest group 'INDUCTION-COOKTOP-CONNECTIVITY' referenced pack id '55ec8fd0-31a1-4827-af71-cc4ebe17bfa3' which was not loaded, this manifest group was not included in the active set of content
+WARNING:The manifest item 'INDUCTION-COOKTOP-CONNECTIVITY' referenced pack id '55ec8fd0-31a1-4827-af71-cc4ebe17bfa3' which was not loaded, this manifest item was not included in the active set of content
+WARNING:The manifest group 'INDUCTION-COOKTOP-HMI' referenced pack id '55ec8fd0-31a1-4827-af71-cc4ebe17bfa3' which was not loaded, this manifest group was not included in the active set of content
+WARNING:The manifest item 'INDUCTION-COOKTOP-HMI' referenced pack id '55ec8fd0-31a1-4827-af71-cc4ebe17bfa3' which was not loaded, this manifest item was not included in the active set of content
+WARNING:The manifest group 'INDUCTION-COOKTOP-INVERTER' referenced pack id '55ec8fd0-31a1-4827-af71-cc4ebe17bfa3' which was not loaded, this manifest group was not included in the active set of content
+WARNING:The manifest item 'INDUCTION-COOKTOP-INVERTER' referenced pack id '55ec8fd0-31a1-4827-af71-cc4ebe17bfa3' which was not loaded, this manifest item was not included in the active set of content
+
+Starting to refresh dependencies for project 'proj_cm0p'.
+Refreshed all dependencies for project 'proj_cm0p'.
+Warning: Multiple versions of "https://github.com/cypresssemiconductorco/core-make" requested. Keeping version "release-v3.2.2" and discarding version "release-v3.2.1".
+
+Starting to refresh dependencies for project 'proj_cm4'.
+Refreshed all dependencies for project 'proj_cm4'.
+Warning: Multiple versions of "https://github.com/cypresssemiconductorco/core-make" requested. Keeping version "release-v3.2.2" and discarding version "release-v3.2.1".
+
+0 error(s), 8 warning(s)
+Successfully acquired the information.
+Starting to refresh dependencies for project 'proj_cm0p'.
+Refreshed all dependencies for project 'proj_cm0p'.
+Warning: Multiple versions of "https://github.com/cypresssemiconductorco/core-make" requested. Keeping version "release-v3.2.2" and discarding version "release-v3.2.1".
+
+Starting to refresh dependencies for project 'proj_cm4'.
+Refreshed all dependencies for project 'proj_cm4'.
+Warning: Multiple versions of "https://github.com/cypresssemiconductorco/core-make" requested. Keeping version "release-v3.2.2" and discarding version "release-v3.2.1".
+
+
+Starting to refresh dependencies for project 'proj_cm0p'.
+Refreshed all dependencies for project 'proj_cm0p'.
+Warning: Multiple versions of "https://github.com/cypresssemiconductorco/core-make" requested. Keeping version "release-v3.2.2" and discarding version "release-v3.2.1".
+
+
+Changelog for project "proj_cm0p":
+Removing existing BSP folder C:/Users/santeler/Documents/MTB_WS/IMR_SW_PSoC6_BatteryManagement/bsps/TARGET_CY8C6245LQI-S3D72.
+
+Starting to refresh dependencies for project 'proj_cm4'.
+Refreshed all dependencies for project 'proj_cm4'.
+Warning: Multiple versions of "https://github.com/cypresssemiconductorco/core-make" requested. Keeping version "release-v3.2.2" and discarding version "release-v3.2.1".
+
+
+Changelog for project "proj_cm4":
+Removing existing BSP folder C:/Users/santeler/Documents/MTB_WS/IMR_SW_PSoC6_BatteryManagement/bsps/TARGET_CY8C6245LQI-S3D72.
+
+Click "Update" to commit the changesUpdating project "proj_cm0p" ...
+Starting to commit changes to the filesystem and project 'proj_cm0p'.
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cat1cm0p/release-v1.1.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-lib/release-v1.4.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/emwin/release-v6.32.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-hal-cat1/release-v2.4.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+fatal: unable to access 'https://github.com/Infineon/cat1cm0p/': Failed to connect to github.com port 443 after 21075 ms: Couldn't connect to server
+Failure: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cat1cm0p/release-v1.1.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Finished processing cat1cm0p
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-pdl-cat1/release-v3.4.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+fatal: unable to access 'https://github.com/cypresssemiconductorco/core-lib/': Failed to connect to github.com port 443 after 21054 ms: Couldn't connect to server
+fatal: unable to access 'https://github.com/cypresssemiconductorco/mtb-hal-cat1/': Failed to connect to github.com port 443 after 21053 ms: Couldn't connect to server
+Failure: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-hal-cat1/release-v2.4.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Finished processing mtb-hal-cat1
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cmsis/release-v5.8.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+fatal: unable to access 'https://github.com/cypresssemiconductorco/emwin/': Failed to connect to github.com port 443 after 21067 ms: Couldn't connect to server
+Failure: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-lib/release-v1.4.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Finished processing core-lib
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-make/release-v3.2.2 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Failure: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/emwin/release-v6.32.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Finished processing emwin
+Starting: git -C C:/Users/santeler/.modustoolbox/global/device-db/release-v4.11.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+fatal: unable to access 'https://github.com/cypresssemiconductorco/mtb-pdl-cat1/': Failed to connect to github.com port 443 after 21074 ms: Couldn't connect to server
+Failure: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-pdl-cat1/release-v3.4.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Finished processing mtb-pdl-cat1
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/recipe-make-cat1a/release-v2.1.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+fatal: unable to access 'https://github.com/Infineon/cmsis/': Failed to connect to github.com port 443 after 21065 ms: Couldn't connect to server
+fatal: unable to access 'https://github.com/cypresssemiconductorco/core-make/': Failed to connect to github.com port 443 after 21067 ms: Couldn't connect to server
+fatal: unable to access 'https://github.com/Infineon/device-db/': Failed to connect to github.com port 443 after 21072 ms: Couldn't connect to server
+Failure: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cmsis/release-v5.8.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Finished processing cmsis
+Failure: git -C C:/Users/santeler/.modustoolbox/global/device-db/release-v4.11.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Finished processing device-db
+Failure: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-make/release-v3.2.2 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Finished processing core-make
+fatal: unable to access 'https://github.com/cypresssemiconductorco/recipe-make-cat1a/': Failed to connect to github.com port 443 after 21071 ms: Couldn't connect to server
+Failure: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/recipe-make-cat1a/release-v2.1.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Finished processing recipe-make-cat1a
+Failed to commit changes to the project 'proj_cm0p'.
+A backup of a removed BSP has been created at C:/Users/santeler/Documents/MTB_WS/IMR_SW_PSoC6_BatteryManagement/bsps/TARGET_CY8C6245LQI-S3D72.zip
+ERROR:there was an error retreiving the asset 'https://github.com/Infineon/cat1cm0p' commit 'release-v1.1.0' - fatal: unable to access 'https://github.com/Infineon/cat1cm0p/': Failed to connect to github.com port 443 after 21075 ms: Couldn't connect to server
+command 'C:/Infineon/Tools/ModusToolbox/tools_3.1/modus-shell/bin/bash -c git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cat1cm0p/release-v1.1.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet'
+  directory ''
+  child process exited with error code 128
+ERROR:there was an error retreiving the asset 'https://github.com/cypresssemiconductorco/mtb-hal-cat1' commit 'release-v2.4.1' - fatal: unable to access 'https://github.com/cypresssemiconductorco/mtb-hal-cat1/': Failed to connect to github.com port 443 after 21053 ms: Couldn't connect to server
+command 'C:/Infineon/Tools/ModusToolbox/tools_3.1/modus-shell/bin/bash -c git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-hal-cat1/release-v2.4.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet'
+  directory ''
+  child process exited with error code 128
+ERROR:there was an error retreiving the asset 'https://github.com/cypresssemiconductorco/core-lib' commit 'release-v1.4.0' - fatal: unable to access 'https://github.com/cypresssemiconductorco/core-lib/': Failed to connect to github.com port 443 after 21054 ms: Couldn't connect to server
+command 'C:/Infineon/Tools/ModusToolbox/tools_3.1/modus-shell/bin/bash -c git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-lib/release-v1.4.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet'
+  directory ''
+  child process exited with error code 128
+ERROR:there was an error retreiving the asset 'https://github.com/cypresssemiconductorco/emwin' commit 'release-v6.32.0' - fatal: unable to access 'https://github.com/cypresssemiconductorco/emwin/': Failed to connect to github.com port 443 after 21067 ms: Couldn't connect to server
+command 'C:/Infineon/Tools/ModusToolbox/tools_3.1/modus-shell/bin/bash -c git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/emwin/release-v6.32.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet'
+  directory ''
+  child process exited with error code 128
+ERROR:there was an error retreiving the asset 'https://github.com/cypresssemiconductorco/mtb-pdl-cat1' commit 'release-v3.4.0' - fatal: unable to access 'https://github.com/cypresssemiconductorco/mtb-pdl-cat1/': Failed to connect to github.com port 443 after 21074 ms: Couldn't connect to server
+command 'C:/Infineon/Tools/ModusToolbox/tools_3.1/modus-shell/bin/bash -c git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-pdl-cat1/release-v3.4.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet'
+  directory ''
+  child process exited with error code 128
+ERROR:there was an error retreiving the asset 'https://github.com/Infineon/cmsis' commit 'release-v5.8.0' - fatal: unable to access 'https://github.com/Infineon/cmsis/': Failed to connect to github.com port 443 after 21065 ms: Couldn't connect to server
+command 'C:/Infineon/Tools/ModusToolbox/tools_3.1/modus-shell/bin/bash -c git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cmsis/release-v5.8.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet'
+  directory ''
+  child process exited with error code 128
+ERROR:there was an error retreiving the asset 'https://github.com/Infineon/device-db' commit 'release-v4.11.1' - fatal: unable to access 'https://github.com/Infineon/device-db/': Failed to connect to github.com port 443 after 21072 ms: Couldn't connect to server
+command 'C:/Infineon/Tools/ModusToolbox/tools_3.1/modus-shell/bin/bash -c git -C C:/Users/santeler/.modustoolbox/global/device-db/release-v4.11.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet'
+  directory ''
+  child process exited with error code 128
+ERROR:there was an error retreiving the asset 'https://github.com/cypresssemiconductorco/core-make' commit 'release-v3.2.2' - fatal: unable to access 'https://github.com/cypresssemiconductorco/core-make/': Failed to connect to github.com port 443 after 21067 ms: Couldn't connect to server
+command 'C:/Infineon/Tools/ModusToolbox/tools_3.1/modus-shell/bin/bash -c git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-make/release-v3.2.2 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet'
+  directory ''
+  child process exited with error code 128
+ERROR:there was an error retreiving the asset 'https://github.com/cypresssemiconductorco/recipe-make-cat1a' commit 'release-v2.1.1' - fatal: unable to access 'https://github.com/cypresssemiconductorco/recipe-make-cat1a/': Failed to connect to github.com port 443 after 21071 ms: Couldn't connect to server
+command 'C:/Infineon/Tools/ModusToolbox/tools_3.1/modus-shell/bin/bash -c git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/recipe-make-cat1a/release-v2.1.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet'
+  directory ''
+  child process exited with error code 128
+
+9 error(s), 0 warning(s)
+ERROR:Failed to update project "proj_cm0p"
+Updating project "proj_cm4" ...
+Starting to commit changes to the filesystem and project 'proj_cm4'.
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cat1cm0p/release-v1.1.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-lib/release-v1.4.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-hal-cat1/release-v2.4.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-pdl-cat1/release-v3.4.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-lib/release-v1.4.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/retarget-io/release-v1.5.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/retarget-io/release-v1.5.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cmsis/release-v5.8.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cat1cm0p/release-v1.1.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-make/release-v3.2.2 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cmsis/release-v5.8.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/.modustoolbox/global/device-db/release-v4.11.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-hal-cat1/release-v2.4.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/recipe-make-cat1a/release-v2.1.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-make/release-v3.2.2 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-lib/release-v1.4.0 -c advice.detachedHead=false checkout release-v1.4.0 --force
+HEAD is now at 9e5ed54 Upload core-lib [1515]
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-lib/release-v1.4.0 -c advice.detachedHead=false checkout release-v1.4.0 --force
+Finished processing core-lib
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/retarget-io/release-v1.5.0 -c advice.detachedHead=false checkout release-v1.5.0 --force
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/recipe-make-cat1a/release-v2.1.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cat1cm0p/release-v1.1.0 -c advice.detachedHead=false checkout release-v1.1.0 --force
+HEAD is now at db7f962 Upload retarget-io [1515]
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/retarget-io/release-v1.5.0 -c advice.detachedHead=false checkout release-v1.5.0 --force
+Finished processing retarget-io
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cmsis/release-v5.8.0 -c advice.detachedHead=false checkout release-v5.8.0 --force
+HEAD is now at 4995428 Upload cat1cm0p 1.1.0.224 [1514]
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cat1cm0p/release-v1.1.0 -c advice.detachedHead=false checkout release-v1.1.0 --force
+Finished processing cat1cm0p
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-hal-cat1/release-v2.4.1 -c advice.detachedHead=false checkout release-v2.4.1 --force
+Success: git -C C:/Users/santeler/.modustoolbox/global/device-db/release-v4.11.1 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-make/release-v3.2.2 -c advice.detachedHead=false checkout release-v3.2.2 --force
+HEAD is now at ce02f64 Upload cmsis 5.8.0.50
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/cmsis/release-v5.8.0 -c advice.detachedHead=false checkout release-v5.8.0 --force
+Finished processing cmsis
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/recipe-make-cat1a/release-v2.1.1 -c advice.detachedHead=false checkout release-v2.1.1 --force
+HEAD is now at b962a1e Upload core-make 3.2.2.4739 [1647]
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/core-make/release-v3.2.2 -c advice.detachedHead=false checkout release-v3.2.2 --force
+Finished processing core-make
+Starting: git -C C:/Users/santeler/.modustoolbox/global/device-db/release-v4.11.1 -c advice.detachedHead=false checkout release-v4.11.1 --force
+HEAD is now at 6e42268 Upload mtb-hal-cat1 [1612]
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-hal-cat1/release-v2.4.1 -c advice.detachedHead=false checkout release-v2.4.1 --force
+Finished processing mtb-hal-cat1
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-pdl-cat1/release-v3.4.0 fetch --recurse-submodules=no --tags --force cypress --update-head-ok "refs/heads/*:refs/heads/*" --quiet
+Starting: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-pdl-cat1/release-v3.4.0 -c advice.detachedHead=false checkout release-v3.4.0 --force
+HEAD is now at 9cbdee3 Upload recipe-make-cat1a 2.1.1.4648 [1380]
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/recipe-make-cat1a/release-v2.1.1 -c advice.detachedHead=false checkout release-v2.1.1 --force
+Finished processing recipe-make-cat1a
+HEAD is now at 84afadc Upload mtb-pdl-cat1 3.4.0.24948 [1514]
+Success: git -C C:/Users/santeler/Documents/MTB_WS/mtb_shared/mtb-pdl-cat1/release-v3.4.0 -c advice.detachedHead=false checkout release-v3.4.0 --force
+Finished processing mtb-pdl-cat1
+HEAD is now at 7c000f21 Upload device-db 4.11.1.5194 [2216]
+Success: git -C C:/Users/santeler/.modustoolbox/global/device-db/release-v4.11.1 -c advice.detachedHead=false checkout release-v4.11.1 --force
+Finished processing device-db
+Successfully committed changes to the project 'proj_cm4'.
+0 error(s), 0 warning(s)
+Successfully updated project "proj_cm4"
+Total: 9 error(s), 0 warning(s)
+ERROR:Failed to update application "C:/Users/santeler/Documents/MTB_WS/IMR_SW_PSoC6_BatteryManagement"
+
+Starting to refresh dependencies for project 'proj_cm0p'.
+Refreshed all dependencies for project 'proj_cm0p'.
+Warning: Multiple versions of "https://github.com/cypresssemiconductorco/core-make" requested. Keeping version "release-v3.2.2" and discarding version "release-v3.2.1".
+
+Starting to refresh dependencies for project 'proj_cm4'.
+Refreshed all dependencies for project 'proj_cm4'.
+Warning: Multiple versions of "https://github.com/cypresssemiconductorco/core-make" requested. Keeping version "release-v3.2.2" and discarding version "release-v3.2.1".
+
+
+Summary:
+ERROR:Failed to update project "proj_cm0p"
+Successfully updated project "proj_cm4"
+Successfully refreshed dependencies.
+WARNING: Not done.
