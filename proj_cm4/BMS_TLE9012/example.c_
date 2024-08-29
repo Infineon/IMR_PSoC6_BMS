@@ -1,0 +1,229 @@
+/*
+ * example.c
+ *
+ *	Library for TLE9012 Li-Ion battery monitoring and balancing system IC. See main file Lib_TLE9012.c for how to use guide
+ *	Created by R. Santeler @ Infineon 2024
+ *
+ *  The code here can be used as starting point for using the library (generic example not directly tested - must be adapted to used uC). For details read comment on top of BMS_TLE9012.c
+ *
+*******************************************************************************
+ * (c) (2024), Cypress Semiconductor Corporation (an Infineon company) or an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
+ * This software, including source code, documentation and related materials ("Software") is owned by Cypress Semiconductor Corporation or one of its affiliates ("Cypress") and is protected by and subject to worldwide patent protection (United States and foreign), United States copyright laws and international treaty provisions.  Therefore, you may use this Software only as provided in the license agreement accompanying the software package from which you obtained this Software ("EULA").
+ * If no EULA applies, Cypress hereby grants you a personal, non-exclusive, non-transferable license to copy, modify, and compile the Software source code solely for use in connection with Cypress's integrated circuit products.  Any reproduction, modification, translation, compilation, or representation of this Software except as specified above is prohibited without the express written permission of Cypress.
+ * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress reserves the right to make changes to the Software without notice. Cypress does not assume any liability arising out of the application or use of the Software or any product or circuit described in the Software. Cypress does not authorize its products for use in any products where a malfunction or failure of the Cypress product may reasonably be expected to result in significant property damage, injury or death ("High Risk Product"). By including Cypress's product in a High Risk Product, the manufacturer of such system or application assumes all risk of such use and in doing so agrees to indemnify Cypress against all liability.
+*******************************************************************************/
+
+#include <stdio.h>
+#include <stdint.h>
+#include "BMS_TLE9012/BMS_TLE9012.h"
+
+/// Definitions
+// Simple function to report a failed TLE9012 function execution via debug UART: Example -TLE9012_DETECT_COM_ERROR(tle9012_convertBlockVoltage(1, 1), convertBlockVoltage_error);
+//   FUNCTION_WITH_PARAMETERS - The function to be executed with parameters
+//   STRING                   - The string that shall be added to debug message (there might be no spaces allowed)
+requestResult tle9012_print_if_error_result;
+#define SUCCESS_FUNCTION_NONE (void)0;
+#define TLE9012_DETECT_COM_ERROR(FUNCTION_WITH_PARAMETERS, STRING, SUCCESS_COMMAND) { \
+		tle9012_print_if_error_result = FUNCTION_WITH_PARAMETERS;                   \
+	if(tle9012_print_if_error_result >= REQUEST_ERROR){                             \
+		DEBUGPRINTF("[ERROR]: " #STRING " returned %d\r\n", tle9012_print_if_error_result); \
+		numComErrors_TLE9012++; \
+	}                       	\
+	else{                   	\
+		SUCCESS_COMMAND;    	\
+	}                       	\
+}
+// State machine diagnostic
+typedef enum {DIAGNOSTIC_EVAL_CLEAR, DIAGNOSTIC_READ} diagnostic_states;
+
+
+/// Variables
+volatile uint8_t errorInterruptDetected_TLE9012 = 1;
+diagnostic_states diagnostic_state = DIAGNOSTIC_EVAL_CLEAR;
+
+/// Function prototypes
+void manage_TLE9012();
+
+/// MAIN LOOP
+int main(void)
+{
+	// Init Uart to TLE9012
+	tle9012_initUART();
+
+	// Wake devices and init ID etc
+	tle9012_deviceInit(0);
+
+	/// TLE9012 initial configuration
+	// PART_CONFIG: Enable monitoring for all cells
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, PART_CONFIG, 0x0FFF, 1, 0), tle9012_writeRegisterByIndex_PART_CONFIG , SUCCESS_FUNCTION_NONE);
+	if (tle9012_print_if_error_result >= REQUEST_ERROR){ return tle9012_print_if_error_result; }
+
+	// MEAS_CTRL: Configure and trigger measurement of Block and Primary Cell Voltage
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, MEAS_CTRL, CVM_DEL__1 | PBOFF__BAL_INTERRUPT | BVM_MODE__16_BIT | BVM_START__TRIG_MEAS | CVM_MODE__16_BIT | PCVM_START__TRIG_MEAS, 1, 0), tle9012_writeRegisterByIndex_MEAS_CTRL , SUCCESS_FUNCTION_NONE);
+	if (tle9012_print_if_error_result >= REQUEST_ERROR){ return tle9012_print_if_error_result; }
+
+	// OP_MODE: Extended watchdog and Diagnostics currents enabled for all channels WARNING: SOME SETTINGS MIGHT RESULT IN THE SYSTEM NOT STARTING PROPERLY IF THEY ARE NOT MANUALLY RESET BEFORE SHUTDOWN
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, OP_MODE, PD__NORMAL_OP | EXT_WD__NOT_ACTIVE | SLEEP_REG_RESET__NORMAL_OP | I_DIAG_EN__OFF | LR_TIME__DEFAULT, 1, 0), tle9012_writeRegisterByIndex_OP_MODE , SUCCESS_FUNCTION_NONE);
+	if (tle9012_print_if_error_result >= REQUEST_ERROR){ return tle9012_print_if_error_result; }
+
+	// FAULT_MASK: Decide which errors trigger the ERR pin to rise and TLE9012 interrupt to trigger
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, FAULT_MASK, ERR_PIN__ENABLE | M_ADC_ERR__ENABLE | M_OL_ERR__ENABLE | M_INT_IC_ERR__ENABLE | M_REG_CRC_ERR__ENABLE | M_EXT_T_ERR__ENABLE | M_INT_OT__ENABLE | M_CELL_UV__ENABLE | M_CELL_OV__ENABLE | M_BAL_ERR_UC__ENABLE | M_NR_ERR_BAL_OC__ENABLE, 1, 0), tle9012_writeRegisterByIndex_FAULT_MASK , SUCCESS_FUNCTION_NONE);
+	if (tle9012_print_if_error_result >= REQUEST_ERROR){ return tle9012_print_if_error_result; }
+
+	// OL_OV_THR: Cell overvoltage and maximum open loop voltage drop threshold
+	uint16_t ov_thr     = (uint16_t)((((float)4200.0)/1000.0)/CELL_OVUV_LSB);
+	uint16_t ol_thr_max = (uint16_t)(0.0/CELL_OVUV_LSB);
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, OL_OV_THR, ov_thr | (ol_thr_max  << 10), 1, 0), tle9012_writeRegisterByIndex_OL_OV_THR , SUCCESS_FUNCTION_NONE);
+	if (tle9012_print_if_error_result >= REQUEST_ERROR){ return tle9012_print_if_error_result; }
+
+	// OL_UV_THR: Cell undervoltage and minimum open loop voltage drop threshold
+	uint16_t uv_thr     = (uint16_t)((((float)(2600.0))/1000.0)/CELL_OVUV_LSB);
+	uint16_t ol_thr_min = (uint16_t)(0.0/CELL_OVUV_LSB);
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, OL_UV_THR, uv_thr | (ol_thr_min  << 10), 1, 0), tle9012_writeRegisterByIndex_OL_UV_THR , SUCCESS_FUNCTION_NONE);
+	if (tle9012_print_if_error_result >= REQUEST_ERROR){ return tle9012_print_if_error_result; }
+
+	// TEMP_CONF: Enable all temperature sensors
+	uint16_t e_overtmp_th = tle9012_convertExternalTemperatureThreshold(TLE9012_EXTERNAL_OVERTEMP_C, I_NTC__I_0);
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, TEMP_CONF, e_overtmp_th | I_NTC__I_0 | NR_TEMP_SENSE__TMP0_4, 1, 0), tle9012_writeRegisterByIndex_TEMP_CONF , SUCCESS_FUNCTION_NONE);
+	if (tle9012_print_if_error_result >= REQUEST_ERROR){ return tle9012_print_if_error_result; }
+
+	// INT_OT_WARN_CONF: Configure internal overtemperature
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, INT_OT_WARN_CONF, (-TLE9012_INTERNAL_OVERTEMP_C+547.3F)/TEMP_INT_LSB, 1, 0), tle9012_writeRegisterByIndex_INT_OT_WARN_CONF , SUCCESS_FUNCTION_NONE);
+	if (tle9012_print_if_error_result >= REQUEST_ERROR){ return tle9012_print_if_error_result; }
+
+	// BAL_PWM: Set the balancing PWM to 0 (off)
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, BAL_PWM, 0, 1, 0), tle9012_writeRegisterByIndex_BAL_PWM , SUCCESS_FUNCTION_NONE);
+	if (tle9012_print_if_error_result >= REQUEST_ERROR){ return tle9012_print_if_error_result; }
+
+	// BAL_CURR_THR:
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, BAL_CURR_THR, OC_THR__DEFAULT | UC_THR__DEFAULT , 1, 0), tle9012_writeRegisterByIndex_BAL_CURR_THR , SUCCESS_FUNCTION_NONE);
+	if (tle9012_print_if_error_result >= REQUEST_ERROR){ return tle9012_print_if_error_result; }
+
+	// BAL_SETTINGS: Disable all balancing switches
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, BAL_SETTINGS, 0, 1, 0), tle9012_writeRegisterByIndex_BAL_SETTINGS , SUCCESS_FUNCTION_NONE);
+	if (tle9012_print_if_error_result >= REQUEST_ERROR){ return tle9012_print_if_error_result; }
+
+	// RR_CONFIG: Enable error counter for all errors except balancing overcurrent (as per default)
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, RR_CONFIG,
+			RR_CNT__RR_36 |
+			RR_SYNC__NO_SYNC |
+			M_NR_ERR_ADC_ERR__DISABLE |
+			M_NR_ERR_OL_ERR__DISABLE |
+			M_NR_ERR_EXT_T_ERR__DISABLE |
+			M_NR_ERR_INT_OT__DISABLE |
+			M_NR_ERR_CELL_UV__DISABLE |
+			M_NR_ERR_CELL_OV__DISABLE |
+			M_NR_ERR_BAL_UC__DISABLE |
+			M_NR_ERR_BAL_OC__ENABLE, 1, 0), tle9012_writeRegisterByIndex_RR_CONFIG , SUCCESS_FUNCTION_NONE);
+	if (tle9012_print_if_error_result >= REQUEST_ERROR){ return tle9012_print_if_error_result; }
+
+	// Set the multi-read configuration
+	requestResult res = tle9012_writeMultiReadConfig(1, PCVM_SEL__RES_CELL_11_0, BVM_SEL__RESULT, EXT_TEMP_SEL__RES_TMP0_4, EXT_TEMP_R_SEL__NO_R_DIAG_RES, INT_TEMP_SEL__INT_TMP_RES, SCVM_SEL__RESULT, STRESS_PCVM_SEL__RESULT, 1 );
+	if (res >= REQUEST_ERROR){ return res; }
+
+	// Leave time for settings to take effect
+	delay(300);
+
+	// Read all registers to cache
+	TLE9012_DETECT_COM_ERROR( tle9012_readAllRegistersToCache(1, 1, 0), tle9012_readAllRegistersToCache , SUCCESS_FUNCTION_NONE);
+
+	/// Print configuration registers
+	tle9012_printRegister(1, OP_MODE);
+	tle9012_printRegister(1, RR_CONFIG);
+	tle9012_printRegister(1, BAL_CURR_THR);
+	tle9012_printRegister(1, MEAS_CTRL);
+	tle9012_printRegister(1, CONFIG_MAIN);
+	tle9012_printRegister(1, FAULT_MASK);
+	tle9012_printRegister(1, MULTI_READ_CFG);
+
+	/// Diagnostic: Read, write and print register for first time
+	// Read and print errors
+	TLE9012_DETECT_COM_ERROR( tle9012_readRegisterByIndex(1, GEN_DIAG, 1, 0), tle9012_readRegisterByIndex_GEN_DIAG , SUCCESS_FUNCTION_NONE);
+	tle9012_printRegister(1, GEN_DIAG);
+	// Clear tle9012 errors for the first time
+	TLE9012_DETECT_COM_ERROR( tle9012_writeRegisterByIndex(1, GEN_DIAG, 0x0000, 1, 0), tle9012_writeRegisterByIndex_GEN_DIAG , SUCCESS_FUNCTION_NONE);
+
+	// Convert BVM, PCVM, TEMP values and print them
+	TLE9012_DETECT_COM_ERROR( tle9012_convertPrimaryCellVoltages(1, 0, 11, 0), tle9012_convertPrimaryCellVoltages , SUCCESS_FUNCTION_NONE);
+	TLE9012_DETECT_COM_ERROR( tle9012_convertBlockVoltage(1, 0), convertBlockVoltage , SUCCESS_FUNCTION_NONE);
+	TLE9012_DETECT_COM_ERROR( tle9012_convertTemperatures(1, 4, 1), tle9012_convertTemperatures , SUCCESS_FUNCTION_NONE);
+	TLE9012_DETECT_COM_ERROR( tle9012_convertInternalTemperatureByIndex(1, 0, 0), tle9012_convertInternalTemperatures_0 , SUCCESS_FUNCTION_NONE);
+	TLE9012_DETECT_COM_ERROR( tle9012_convertInternalTemperatureByIndex(1, 1, 0), tle9012_convertInternalTemperatures_1 , SUCCESS_FUNCTION_NONE);
+	// Print voltage and temperature
+	printf("Initial TLE9012 measurements: \r\n");
+	printf("\tBVM:    %2.3lf V \r\n", tle9012_nodes[0].block_voltage);
+	for(uint8_t i = 0; i < NUM_CELLS; i++){
+		printf("\tPCVM:    %2.3lf V \r\n", (double)(tle9012_nodes[0].cell_voltages[i])/1000.0);
+		sh_pub_cells[i] = tle9012_nodes[0].cell_voltages[i];
+	}
+	for(int i = 0; i <= 4; i++){
+		printf("\tTemp %d: %2.3lf C \r\n", i, tle9012_nodes[0].temperatures[i]);
+	}
+	printf("\tTempInt 0: %2.3lf C \r\n", tle9012_nodes[0].temperaturesInternal[0]);
+	printf("\tTempInt 1: %2.3lf C \r\n", tle9012_nodes[0].temperaturesInternal[1]);
+
+
+	// Send a watchdog update manually if the next steps till the main loop enters could take longer than wake time.
+	//manage_TLE9012();
+
+	/* Application main loop */
+	while(1U) {
+		/// DIAGNOSTIC TLE9012:  Check if diagnostic register is queued, if not read it and reset errors
+		// Do nothing if register is still queued (not ready yet)
+		if(checkRegisterQueued_tle9012(1, GEN_DIAG, 0) == 0){
+			// STATE: EVALUATE DATA AND CLEAR ERRORS
+			if(diagnostic_state == DIAGNOSTIC_EVAL_CLEAR){
+				// Only use data if no communication error is detected
+				if(checkRegisterError_tle9012(1, GEN_DIAG, 0) == 0){
+					/// Call GEN_DIAG register data 
+					uint16_t data_gen_diag = getRegisterCacheDataByIndex_tle9012(1, GEN_DIAG);
+
+					// Use data ...
+
+					/// If any error is set or error interrupt is detected reset errors
+					if((data_gen_diag & GEN_DIAG_RESETABLE_FLAGS) != 0){
+						// Clear all errors
+						tle9012_clearProblemDetected();
+						tle9012_clearStatusFlags(1, 0, 0);
+					}
+				}
+				// Change state to read
+				diagnostic_state = DIAGNOSTIC_READ;
+			}
+			// STATE: READ NEW DATA
+			else if((diagnostic_state == DIAGNOSTIC_READ) || errorInterruptDetected_TLE9012){
+				// Queue next read of GEN_DIAG register
+				tle9012_result = tle9012_readRegisterByIndex(1, GEN_DIAG, 0, 0);
+				if(tle9012_result >= REQUEST_ERROR){ printf("[ERROR]: Trigger next GEN_DIAG read failed %d\r\n", tle9012_result);}
+
+				// Change state to evaluate and clear
+				diagnostic_state = DIAGNOSTIC_EVAL_CLEAR;
+			}
+		}
+		
+		// Processing of TLE9012 queue, interpreter and data. Must run every loop. Will send watchdog update when needed.
+		manage_TLE9012();
+	}
+}
+
+
+
+
+// Interrupt handler callback function if ERR pin of TLE9012 is triggered
+static void IRQ_ERR_TLE9012()
+{
+	// Mark error
+	errorInterruptDetected_TLE9012 = 1;
+}
+
+
+
+//****************************************************************************
+// manage_TLE9012 - Execute queue management and interpretation of received data from anlog frontend. This also keeps the IC awake.
+//                 See comment of tle9012_manageQueue and tle9012_manageInterpreter
+//****************************************************************************
+void manage_TLE9012(){
+	// Check TLE9012 queue and interpreter
+	lastQueueResult_tle9012 = tle9012_manageQueue(1);
+	tle9012_manageInterpreter();
+}
