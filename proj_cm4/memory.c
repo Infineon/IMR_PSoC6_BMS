@@ -30,7 +30,7 @@
 *******************************************************************************/
 #define PRINTF_MEMORY(p_frm, ...)						printf(p_frm, ##__VA_ARGS__)
 #define PRINTF_MEMORY_SYSTEM_DATA_UPDATE(p_frm, ...)	printf(p_frm, ##__VA_ARGS__)
-#define PRINTF_MEMORY_RT_DATA_UPDATE(p_frm, ...)		// //printf(p_frm, ##__VA_ARGS__)
+#define PRINTF_MEMORY_RT_DATA_UPDATE(p_frm, ...)		//printf(p_frm, ##__VA_ARGS__)
 #define PRINTF_MEMORY_RT_DATA_UPDATE_RATE(p_frm, ...)	//printf(p_frm, ##__VA_ARGS__)
 
 /*******************************************************************************
