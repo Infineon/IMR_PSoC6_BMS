@@ -33,6 +33,7 @@
 // DEFINITIONS
 //********************************************************************************
 #define PRINTF_BATTERY_STATE(p_frm, ...)						printf(p_frm, ##__VA_ARGS__)
+#define PRINTF_DEBUG_BTN_RESET(p_frm, ...)						printf(p_frm, ##__VA_ARGS__)
 
 //********************************************************************************
 // VARIABLES
@@ -123,6 +124,14 @@ float init_battery_state(battery_state_struct* bss, float capacity_rated, float 
 		// Initialize battery with 100% (as if battery is new, SoH = 100%)
 		bss->SoH_t0 = SOH_INIT;
 		PRINTF_BATTERY_STATE("\t Using SoH = %.2f percent (new) because last SoH in FRAM not valid %d\r\n", bss->SoH_t0, isMemoryValid);
+	}
+
+	// Reset SoH if debug button is pressed at startup
+	if(cyhal_gpio_read(CYBSP_SWITCH) == 1){
+		bss->SoH_t0 = SOH_INIT;
+		memoryLastStoredSoH = (uint8_t)bss->SoH_t0;
+		memoryWrite(&memoryLastStoredSoH, MEM_ADDR_LAST_SOH, MEM_SIZE_LAST_SOH);
+		PRINTF_DEBUG_BTN_RESET("\t Debug button pressed - Reset SoH to %3u. \r\n", memoryLastStoredSoH);
 	}
 
 	// The initial SoC must never be 0
