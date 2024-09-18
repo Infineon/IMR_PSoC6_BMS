@@ -48,6 +48,7 @@
 #define CODING_RES_MAINBOARD_1_BELOW_mV	1800			 // The voltage threshold when the system is inside the IMR mainboard 1 with the 7.5KOhm resistor installed (part of a voltage divider measured by internal ADC)
 #define CODING_RES_CHARGER_BELOW_mV		705				 // The voltage threshold when the system is in the charger with 0Ohm installed as coding resistor
 #define SLOT_PLUG_DEBOUNCE_TIME			1000			 // Time in ms that must pass before slot state changes to a state where switch on is possible are accepted. Prevents switch on during plug in etc
+#define DETECT_SLOT_BASED_ON_CURRENT    0 				 // EXPERIMENTAL: Determine slot based on current and coding resistor (1, experimental/untested) or only based on coding resistor (0, default). Can be used for lab cycling
 
 // Main loop task intervals
 #define CAN_MINIMAL_MESSAGE_TIME		5				 // Minimal time between CAN messages to limit bus usage. Also defines how fast recorded real time (RT) data can be transfered via CAN command BMS_RT_Data_GetLines (e.g. 3275 lines with 2 messages per line and 5ms between messages -> 32.75s)
@@ -82,6 +83,7 @@
 
 // Hotswap, shutdown and watchdog
 #define ENABLE_HARDWARE_WATCHDOG		1				 // Disable or enable hardware watchdog with cyhal_wdt_init(). Note that this feature is deactivated in Hardware when a debug probe is attached to the board (see PSoC documentation)
+#define ENABLE_SOFTWARE_WATCHDOG		1				 // Disable or enable software watchdog. Use this for easier debugging.
 #define HARDWARE_WATCHDOG_TIMEOUT		6000			 // Time in ms between watchdog checks if controller hanged up. If a main loop cycle takes longer than this or controller enters fault state, the system will be reset hard (no soft reset). Note this must be lower than result of cyhal_wdt_get_max_timeout_ms()
 #define SOFTWARE_WATCHDOG_TIMEOUT		500				 // Time in ms between watchdog checks if main loop hanged up.  If a main loop cycle takes longer than this, the system will be shut down controlled.
 #define MAXIMUM_SHUTDOWN_TIME			6000			 // Maximum time that can pass between shutdown button press and hard shutdown. Also determines how long the button must be pressed continuously to trigger hard shutdown. Note that this code also runs on CM0 to make sure a shutdown is possible even if one core stops working. The value for the CM0 core must be set in proc_cm0p/main.c

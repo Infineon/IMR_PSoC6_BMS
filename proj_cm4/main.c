@@ -159,7 +159,7 @@ int main(void)
 	init_Timer_RTC();
 
     // Initialize Hardware Watchdog
-	#if defined(ENABLE_HARDWARE_WATCHDOG)
+	#if ENABLE_HARDWARE_WATCHDOG == 1
 		result = cyhal_wdt_init(&wdt_obj, HARDWARE_WATCHDOG_TIMEOUT);
 		if (result != CY_RSLT_SUCCESS){
 			cyhal_gpio_write(BMS_LED4_BL, 1); cyhal_gpio_write(BMS_LED3_RD, 1);
@@ -173,12 +173,12 @@ int main(void)
     // Init debug message sending via printf
 	init_UART_debug();
 
-	#if (ACTIVATE_CELL_ERROR_IGNORE == 1)
-		PRINTF_MAIN_DEBUG("\r\n\r\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   ALL CELL ERRORS ARE BYPASSED FOR DEBBUGING, THERE ARE ALMOST NO SAFETY FEATURES IN THIS SYSTEM. DO NOT DISTRIBUTE   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\r\n");
+	#if (ACTIVATE_CELL_ERROR_IGNORE == 1 || ENABLE_HARDWARE_WATCHDOG == 0 || ENABLE_SOFTWARE_WATCHDOG == 0)
+		PRINTF_MAIN_DEBUG("\r\n\r\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   WATCHDOGS OR CELL ERRORS ARE BYPASSED FOR DEBUGGING, SAFETY FEATURES ARE COMPROMISED IN THIS SYSTEM. DO NOT DISTRIBUTE, DO NOT USE OUTSIDE OF LAB   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\r\n");
 		cyhal_gpio_write(LED_Red, 0);
 	#endif
 	PRINTF_MAIN_DEBUG("\r\n\r\n--------------------------------------------------------------------\r\n");
-	PRINTF_MAIN_DEBUG("START CM4 - Version 05.09.2024 Release 1.1\r\n");
+	PRINTF_MAIN_DEBUG("START CM4 - Version 18.09.2024 Prerelease 1.2\r\n");
 	PRINTF_MAIN_DEBUG("\t Last shutdown reason %u (on hard resets, system might restart multiple times!)\r\n", (uint16_t)cyhal_system_get_reset_reason());
 	//CYHAL_SYSTEM_RESET_NONE            = 0,   /**< No cause */
 	//CYHAL_SYSTEM_RESET_WDT             = 1,   /**< A watchdog timer (WDT) reset has occurred */
@@ -274,7 +274,7 @@ int main(void)
 
 	// Enable software watchdog
 	mainLoopCounter_lastWatchdog = UINT32_MAX;
-	isWatchdogActive = 1;
+	isWatchdogActive = ENABLE_SOFTWARE_WATCHDOG;
 	// Keep hardware watchdog alive
 	keepHardwareWatchdogAlive();
 
@@ -377,7 +377,7 @@ void timer_watchdog_interrupt_handler(){
 		shutdownSystem();
 	}
 
-    // Kill system if shutdown took to long
+    // Kill system if refresh of display with resulting shutdown took to long
 	if((isShutdownTriggered == 1) && (TIMER_COUNTER_1MS > (shutdownTriggeredTimestamp + MAXIMUM_SHUTDOWN_TIME))){
 		PRINTF_MAIN_DEBUG("HARD SHUTDOWN TRIGGERED - SHUTDOWN TOOK LONGER THAN MAXIMUM_SHUTDOWN_TIME\r\n");
 		shutdownSystem();
@@ -1668,6 +1668,7 @@ void manage_externalCommunicationBMS(){
 	static canDataSendStates canDataSendState;
 	uint8_t targetData[CAN_MAX_DATA_LENGTH];
 
+	/// DEBUG UART: CYCLIC STATUS SENDING
 	// Debug status messages
 	if(TIMER_COUNTER_1MS > (lastExternalCommunicationTimestamp + EXTERNAL_COMMUNICATION_TIME)){
 		// Store current time as last execution time
@@ -1806,6 +1807,31 @@ void manage_externalCommunicationBMS(){
 		}
 	}
 
+	/// DEBUG UART: RECEIVED MESSAGE CHECK
+	// Prepare buffer
+	#define RX_BUFFER_UART_SIZE 100
+	uint8_t rxBufferUART[RX_BUFFER_UART_SIZE];
+	//uint16_t cmdLen = 0;
+	static uint16_t full_rx_size = 0;
+	size_t rx_size = RX_BUFFER_UART_SIZE;
+
+	// Read buffer and store received data
+	cyhal_uart_read(&cy_retarget_io_uart_obj, &rxBufferUART[full_rx_size], &rx_size);
+	full_rx_size += rx_size;
+
+	// If \r was received store command and print result
+	if (rxBufferUART[full_rx_size - 1] == 0x0d) {
+		printf("Received %d bytes from UART: ", full_rx_size);
+		for(uint8_t i=0; i<full_rx_size-1; i++){
+			printf(" %d (%c)", rxBufferUART[i], rxBufferUART[i]);
+		}
+		printf(" %d", rxBufferUART[full_rx_size-1]);
+		printf("\r\n");
+		full_rx_size = 0;
+		//cyhal_uart_clear(&cy_retarget_io_uart_obj);
+	}
+
+	/// CAN COMMUNICATION
 	// Send information about BMS state via CAN. Only from active BMS
 	if(statusBMS.hotSwapRole == HOTSWAP_MAIN && (TIMER_COUNTER_1MS > (canLastMessageTimestamp + CAN_MINIMAL_MESSAGE_TIME + (rand() % 4)))){
 		// Store current time as last message send time
@@ -2029,33 +2055,68 @@ void manage_slotState(uint8_t ignoreDebounce){
 	}
 	// If time since last SLOT_NONE detection is greater than SLOT_PLUG_DEBOUNCE_TIME check in which slot the system is now
 	else if((ignoreDebounce == 1) || (TIMER_COUNTER_1MS > (slotPlugDebounceTimestamp + SLOT_PLUG_DEBOUNCE_TIME))){
-		if(adc_coding_res_mV > CODING_RES_CHARGER_BELOW_mV && adc_coding_res_mV < CODING_RES_MAINBOARD_1_BELOW_mV && statusBMS.slotState != SLOT_IN_SYSTEM_1){
-			PRINTF_MAIN_DEBUG("BMS is in IMR mainboard 1: %ldmV\r\n", adc_coding_res_mV);
+		// Determine slot based on current and coding resistor or only based on coding resistor (see DETECT_SLOT_BASED_ON_CURRENT)
+		// EXPERIMENTAL: Detect CHARGER if current is below zero
+		#if DETECT_SLOT_BASED_ON_CURRENT == 1
+			if(statusBMS.current < 0){
+				if(statusBMS.slotState != SLOT_IN_CHARGER){
+					PRINTF_MAIN_DEBUG("BMS is in charger: %ldmV\r\n", adc_coding_res_mV);
 
-			// Change State
-			statusBMS.slotState = SLOT_IN_SYSTEM_1;
+					// Change State
+					statusBMS.slotState = SLOT_IN_CHARGER;
 
-			// Refresh own CAN ID
-			set_canfd_ID_based_on_slot();
-		}
-		else if(adc_coding_res_mV > CODING_RES_MAINBOARD_1_BELOW_mV && adc_coding_res_mV < CODING_RES_MAINBOARD_2_BELOW_mV && statusBMS.slotState != SLOT_IN_SYSTEM_2){
-			PRINTF_MAIN_DEBUG("BMS is in IMR mainboard 2: %ldmV\r\n", adc_coding_res_mV);
+					// Refresh own CAN ID
+					set_canfd_ID_based_on_slot();
+				}
+			}
+			else if(adc_coding_res_mV > CODING_RES_CHARGER_BELOW_mV && adc_coding_res_mV < CODING_RES_MAINBOARD_1_BELOW_mV && statusBMS.slotState != SLOT_IN_SYSTEM_1){
+				PRINTF_MAIN_DEBUG("BMS is in IMR mainboard 1: %ldmV\r\n", adc_coding_res_mV);
 
-			// Change State
-			statusBMS.slotState = SLOT_IN_SYSTEM_2;
+				// Change State
+				statusBMS.slotState = SLOT_IN_SYSTEM_1;
 
-			// Refresh own CAN ID
-			set_canfd_ID_based_on_slot();
-		}
-		else if(adc_coding_res_mV < CODING_RES_CHARGER_BELOW_mV && statusBMS.slotState != SLOT_IN_CHARGER){
-			PRINTF_MAIN_DEBUG("BMS is in charger: %ldmV\r\n", adc_coding_res_mV);
+				// Refresh own CAN ID
+				set_canfd_ID_based_on_slot();
+			}
+			else if(adc_coding_res_mV > CODING_RES_MAINBOARD_1_BELOW_mV && adc_coding_res_mV < CODING_RES_MAINBOARD_2_BELOW_mV && statusBMS.slotState != SLOT_IN_SYSTEM_2){
+				PRINTF_MAIN_DEBUG("BMS is in IMR mainboard 2: %ldmV\r\n", adc_coding_res_mV);
 
-			// Change State
-			statusBMS.slotState = SLOT_IN_CHARGER;
+				// Change State
+				statusBMS.slotState = SLOT_IN_SYSTEM_2;
 
-			// Refresh own CAN ID
-			set_canfd_ID_based_on_slot();
-		}
+				// Refresh own CAN ID
+				set_canfd_ID_based_on_slot();
+			}
+		// DEFAULT: Detect all slot state only based on coding resistor
+		#else
+			if(adc_coding_res_mV > CODING_RES_CHARGER_BELOW_mV && adc_coding_res_mV < CODING_RES_MAINBOARD_1_BELOW_mV && statusBMS.slotState != SLOT_IN_SYSTEM_1){
+				PRINTF_MAIN_DEBUG("BMS is in IMR mainboard 1: %ldmV\r\n", adc_coding_res_mV);
+
+				// Change State
+				statusBMS.slotState = SLOT_IN_SYSTEM_1;
+
+				// Refresh own CAN ID
+				set_canfd_ID_based_on_slot();
+			}
+			else if(adc_coding_res_mV > CODING_RES_MAINBOARD_1_BELOW_mV && adc_coding_res_mV < CODING_RES_MAINBOARD_2_BELOW_mV && statusBMS.slotState != SLOT_IN_SYSTEM_2){
+				PRINTF_MAIN_DEBUG("BMS is in IMR mainboard 2: %ldmV\r\n", adc_coding_res_mV);
+
+				// Change State
+				statusBMS.slotState = SLOT_IN_SYSTEM_2;
+
+				// Refresh own CAN ID
+				set_canfd_ID_based_on_slot();
+			}
+			else if(adc_coding_res_mV < CODING_RES_CHARGER_BELOW_mV && statusBMS.slotState != SLOT_IN_CHARGER){
+				PRINTF_MAIN_DEBUG("BMS is in charger: %ldmV\r\n", adc_coding_res_mV);
+
+				// Change State
+				statusBMS.slotState = SLOT_IN_CHARGER;
+
+				// Refresh own CAN ID
+				set_canfd_ID_based_on_slot();
+			}
+		#endif
 	}
 }
 
@@ -2098,7 +2159,7 @@ void manage_shutdown(){
 //****************************************************************************
 void keepHardwareWatchdogAlive(){
 	// Keep hardware watchdog alive
-	#if defined(ENABLE_HARDWARE_WATCHDOG)
+	#if ENABLE_HARDWARE_WATCHDOG == 1
 		cyhal_wdt_kick(&wdt_obj);
 	#endif /* #if defined (ENABLE_HARDWARE_WATCHDOG) */
 
