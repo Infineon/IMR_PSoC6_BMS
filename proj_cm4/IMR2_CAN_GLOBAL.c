@@ -76,7 +76,7 @@ cy_stc_canfd_sid_filter_config_t CANFD_sidFiltersConfig_new = {
 };
 
 // Buffer for last received can message
-IMR2_CAN_MESSAGE_STRUCT_t IMR2_CAN_RX = { 0 };
+IMR_CAN_MESSAGE_STRUCT_t IMR_CAN_RX = { 0 };
 
 // Common flags and error counter
 uint8_t newCanMessageReceived = 0;  // Flag to check if a new CAN message is received
@@ -146,7 +146,7 @@ void set_canfd_ID_based_on_slot(){
 *
 * Parameters:
 *  Target_CAN_ID		- Destination CAN ID
-*  CAN_Command			- CAN command id - see IMR2_CAN_BMS_COMMANDS
+*  CAN_Command			- CAN command id - see IMR_CAN_BMS_COMMANDS
 *  Target_Data			- Pointer to the data array to be send
 *  Target_Data_Length	- Size of the data array to be send
 *
@@ -326,13 +326,13 @@ void CAN_IRQ_RX_MESSAGE_HANDLER(bool msg_valid, uint8_t msg_buf_fifo_num, cy_stc
 			memcpy(canfd_data_buffer, canfd_rx_buf->data_area_f, canfd_dlc);
 
 			// Store command and sender ID
-			IMR2_CAN_RX.CAN_COMMAND = canfd_data_buffer[0];
-			IMR2_CAN_RX.CAN_SENDER_ID = canfd_data_buffer[1];
+			IMR_CAN_RX.CAN_COMMAND = canfd_data_buffer[0];
+			IMR_CAN_RX.CAN_SENDER_ID = canfd_data_buffer[1];
 
 			// Transfer received message from CAN data structure into receive buffer
 			uint8_t CAN_POS = 2U;
 			for (uint8_t i = CAN_POS; i < canfd_dlc; i++)
-				IMR2_CAN_RX.CAN_DATA[i] = canfd_data_buffer[CAN_POS];
+				IMR_CAN_RX.CAN_DATA[i] = canfd_data_buffer[CAN_POS];
 
 			// Trigger parsing of the received data for further processing
 			CAN_IRQ_RX_MESSAGE_PARSE(canfd_id, canfd_data_buffer, canfd_dlc);

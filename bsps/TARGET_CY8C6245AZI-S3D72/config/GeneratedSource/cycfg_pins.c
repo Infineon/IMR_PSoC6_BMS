@@ -1,34 +1,34 @@
 /*******************************************************************************
-* File Name: cycfg_pins.c
-*
-* Description:
-* Pin configuration
-* This file was automatically generated and should not be modified.
-* Configurator Backend 3.10.0
-* device-db 4.11.1.5194
-* mtb-pdl-cat1 3.4.0.24948
-*
-********************************************************************************
-* Copyright 2024 Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
-* SPDX-License-Identifier: Apache-2.0
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-********************************************************************************/
+ * File Name: cycfg_pins.c
+ *
+ * Description:
+ * Pin configuration
+ * This file was automatically generated and should not be modified.
+ * Configurator Backend 3.30.0
+ * device-db 4.11.1.5194
+ * mtb-pdl-cat1 3.4.0.24948
+ *
+ *******************************************************************************
+ * Copyright 2024 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation.
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 
 #include "cycfg_pins.h"
 
-const cy_stc_gpio_pin_config_t CYBSP_WCO_IN_config = 
+const cy_stc_gpio_pin_config_t CYBSP_WCO_IN_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_ANALOG,
@@ -44,15 +44,17 @@ const cy_stc_gpio_pin_config_t CYBSP_WCO_IN_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t CYBSP_WCO_IN_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = CYBSP_WCO_IN_PORT_NUM,
-        .channel_num = CYBSP_WCO_IN_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t CYBSP_WCO_OUT_config = 
+const cyhal_resource_inst_t CYBSP_WCO_IN_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = CYBSP_WCO_IN_PORT_NUM,
+    .channel_num = CYBSP_WCO_IN_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t CYBSP_WCO_OUT_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_ANALOG,
@@ -68,15 +70,17 @@ const cy_stc_gpio_pin_config_t CYBSP_WCO_OUT_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t CYBSP_WCO_OUT_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = CYBSP_WCO_OUT_PORT_NUM,
-        .channel_num = CYBSP_WCO_OUT_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t CYBSP_DEBUG_UART_RX_config = 
+const cyhal_resource_inst_t CYBSP_WCO_OUT_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = CYBSP_WCO_OUT_PORT_NUM,
+    .channel_num = CYBSP_WCO_OUT_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t CYBSP_DEBUG_UART_RX_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_HIGHZ,
@@ -92,15 +96,17 @@ const cy_stc_gpio_pin_config_t CYBSP_DEBUG_UART_RX_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t CYBSP_DEBUG_UART_RX_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = CYBSP_DEBUG_UART_RX_PORT_NUM,
-        .channel_num = CYBSP_DEBUG_UART_RX_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t CYBSP_DEBUG_UART_TX_config = 
+const cyhal_resource_inst_t CYBSP_DEBUG_UART_RX_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = CYBSP_DEBUG_UART_RX_PORT_NUM,
+    .channel_num = CYBSP_DEBUG_UART_RX_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t CYBSP_DEBUG_UART_TX_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
@@ -116,15 +122,17 @@ const cy_stc_gpio_pin_config_t CYBSP_DEBUG_UART_TX_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t CYBSP_DEBUG_UART_TX_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = CYBSP_DEBUG_UART_TX_PORT_NUM,
-        .channel_num = CYBSP_DEBUG_UART_TX_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t LED_Red_config = 
+const cyhal_resource_inst_t CYBSP_DEBUG_UART_TX_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = CYBSP_DEBUG_UART_TX_PORT_NUM,
+    .channel_num = CYBSP_DEBUG_UART_TX_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t LED_Red_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
@@ -140,15 +148,17 @@ const cy_stc_gpio_pin_config_t LED_Red_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t LED_Red_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = LED_Red_PORT_NUM,
-        .channel_num = LED_Red_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t BMS_LED1_GR_config = 
+const cyhal_resource_inst_t LED_Red_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = LED_Red_PORT_NUM,
+    .channel_num = LED_Red_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t BMS_LED1_GR_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
@@ -164,15 +174,17 @@ const cy_stc_gpio_pin_config_t BMS_LED1_GR_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t BMS_LED1_GR_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = BMS_LED1_GR_PORT_NUM,
-        .channel_num = BMS_LED1_GR_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t ADC_2ED4820_CSO_config = 
+const cyhal_resource_inst_t BMS_LED1_GR_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = BMS_LED1_GR_PORT_NUM,
+    .channel_num = BMS_LED1_GR_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t ADC_2ED4820_CSO_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_ANALOG,
@@ -188,15 +200,17 @@ const cy_stc_gpio_pin_config_t ADC_2ED4820_CSO_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t ADC_2ED4820_CSO_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = ADC_2ED4820_CSO_PORT_NUM,
-        .channel_num = ADC_2ED4820_CSO_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t ADC_CODING_RES_config = 
+const cyhal_resource_inst_t ADC_2ED4820_CSO_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = ADC_2ED4820_CSO_PORT_NUM,
+    .channel_num = ADC_2ED4820_CSO_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t ADC_CODING_RES_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_ANALOG,
@@ -212,15 +226,17 @@ const cy_stc_gpio_pin_config_t ADC_CODING_RES_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t ADC_CODING_RES_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = ADC_CODING_RES_PORT_NUM,
-        .channel_num = ADC_CODING_RES_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t ioss_0_port_12_pin_6_config = 
+const cyhal_resource_inst_t ADC_CODING_RES_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = ADC_CODING_RES_PORT_NUM,
+    .channel_num = ADC_CODING_RES_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t ioss_0_port_12_pin_6_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_ANALOG,
@@ -236,15 +252,17 @@ const cy_stc_gpio_pin_config_t ioss_0_port_12_pin_6_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t ioss_0_port_12_pin_6_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = ioss_0_port_12_pin_6_PORT_NUM,
-        .channel_num = ioss_0_port_12_pin_6_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t ioss_0_port_12_pin_7_config = 
+const cyhal_resource_inst_t ioss_0_port_12_pin_6_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = ioss_0_port_12_pin_6_PORT_NUM,
+    .channel_num = ioss_0_port_12_pin_6_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t ioss_0_port_12_pin_7_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_ANALOG,
@@ -260,15 +278,17 @@ const cy_stc_gpio_pin_config_t ioss_0_port_12_pin_7_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t ioss_0_port_12_pin_7_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = ioss_0_port_12_pin_7_PORT_NUM,
-        .channel_num = ioss_0_port_12_pin_7_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t WPn_config = 
+const cyhal_resource_inst_t ioss_0_port_12_pin_7_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = ioss_0_port_12_pin_7_PORT_NUM,
+    .channel_num = ioss_0_port_12_pin_7_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t WPn_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
@@ -284,15 +304,17 @@ const cy_stc_gpio_pin_config_t WPn_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t WPn_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = WPn_PORT_NUM,
-        .channel_num = WPn_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t HOLDn_config = 
+const cyhal_resource_inst_t WPn_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = WPn_PORT_NUM,
+    .channel_num = WPn_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t HOLDn_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
@@ -308,15 +330,17 @@ const cy_stc_gpio_pin_config_t HOLDn_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t HOLDn_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = HOLDn_PORT_NUM,
-        .channel_num = HOLDn_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t CYBSP_CANFD_RX_config = 
+const cyhal_resource_inst_t HOLDn_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = HOLDn_PORT_NUM,
+    .channel_num = HOLDn_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t CYBSP_CANFD_RX_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_HIGHZ,
@@ -332,15 +356,17 @@ const cy_stc_gpio_pin_config_t CYBSP_CANFD_RX_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t CYBSP_CANFD_RX_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = CYBSP_CANFD_RX_PORT_NUM,
-        .channel_num = CYBSP_CANFD_RX_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t CYBSP_CANFD_TX_config = 
+const cyhal_resource_inst_t CYBSP_CANFD_RX_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = CYBSP_CANFD_RX_PORT_NUM,
+    .channel_num = CYBSP_CANFD_RX_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t CYBSP_CANFD_TX_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_STRONG,
@@ -356,15 +382,17 @@ const cy_stc_gpio_pin_config_t CYBSP_CANFD_TX_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t CYBSP_CANFD_TX_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = CYBSP_CANFD_TX_PORT_NUM,
-        .channel_num = CYBSP_CANFD_TX_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t CANFD_STB_config = 
+const cyhal_resource_inst_t CYBSP_CANFD_TX_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = CYBSP_CANFD_TX_PORT_NUM,
+    .channel_num = CYBSP_CANFD_TX_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t CANFD_STB_config =
 {
     .outVal = 0,
     .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
@@ -380,15 +408,17 @@ const cy_stc_gpio_pin_config_t CANFD_STB_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t CANFD_STB_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = CANFD_STB_PORT_NUM,
-        .channel_num = CANFD_STB_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t CYBSP_SWITCH_config = 
+const cyhal_resource_inst_t CANFD_STB_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = CANFD_STB_PORT_NUM,
+    .channel_num = CANFD_STB_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t CYBSP_SWITCH_config =
 {
     .outVal = 0,
     .driveMode = CY_GPIO_DM_PULLDOWN,
@@ -404,15 +434,17 @@ const cy_stc_gpio_pin_config_t CYBSP_SWITCH_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t CYBSP_SWITCH_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = CYBSP_SWITCH_PORT_NUM,
-        .channel_num = CYBSP_SWITCH_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t ioss_0_port_6_pin_6_config = 
+const cyhal_resource_inst_t CYBSP_SWITCH_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = CYBSP_SWITCH_PORT_NUM,
+    .channel_num = CYBSP_SWITCH_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t ioss_0_port_6_pin_6_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_PULLUP,
@@ -428,15 +460,17 @@ const cy_stc_gpio_pin_config_t ioss_0_port_6_pin_6_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t ioss_0_port_6_pin_6_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = ioss_0_port_6_pin_6_PORT_NUM,
-        .channel_num = ioss_0_port_6_pin_6_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t ioss_0_port_6_pin_7_config = 
+const cyhal_resource_inst_t ioss_0_port_6_pin_6_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = ioss_0_port_6_pin_6_PORT_NUM,
+    .channel_num = ioss_0_port_6_pin_6_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t ioss_0_port_6_pin_7_config =
 {
     .outVal = 1,
     .driveMode = CY_GPIO_DM_PULLDOWN,
@@ -452,15 +486,17 @@ const cy_stc_gpio_pin_config_t ioss_0_port_6_pin_7_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t ioss_0_port_6_pin_7_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = ioss_0_port_6_pin_7_PORT_NUM,
-        .channel_num = ioss_0_port_6_pin_7_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t BUTTON_SHUTDOWN_config = 
+const cyhal_resource_inst_t ioss_0_port_6_pin_7_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = ioss_0_port_6_pin_7_PORT_NUM,
+    .channel_num = ioss_0_port_6_pin_7_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t BUTTON_SHUTDOWN_config =
 {
     .outVal = 0,
     .driveMode = CY_GPIO_DM_HIGHZ,
@@ -476,15 +512,17 @@ const cy_stc_gpio_pin_config_t BUTTON_SHUTDOWN_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t BUTTON_SHUTDOWN_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = BUTTON_SHUTDOWN_PORT_NUM,
-        .channel_num = BUTTON_SHUTDOWN_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t BMS_LED4_BL_config = 
+const cyhal_resource_inst_t BUTTON_SHUTDOWN_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = BUTTON_SHUTDOWN_PORT_NUM,
+    .channel_num = BUTTON_SHUTDOWN_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t BMS_LED4_BL_config =
 {
     .outVal = 0,
     .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
@@ -500,15 +538,17 @@ const cy_stc_gpio_pin_config_t BMS_LED4_BL_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t BMS_LED4_BL_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = BMS_LED4_BL_PORT_NUM,
-        .channel_num = BMS_LED4_BL_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t BMS_LED3_RD_config = 
+const cyhal_resource_inst_t BMS_LED4_BL_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = BMS_LED4_BL_PORT_NUM,
+    .channel_num = BMS_LED4_BL_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t BMS_LED3_RD_config =
 {
     .outVal = 0,
     .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
@@ -524,15 +564,17 @@ const cy_stc_gpio_pin_config_t BMS_LED3_RD_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t BMS_LED3_RD_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = BMS_LED3_RD_PORT_NUM,
-        .channel_num = BMS_LED3_RD_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t BMS_LED2_OR_config = 
+const cyhal_resource_inst_t BMS_LED3_RD_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = BMS_LED3_RD_PORT_NUM,
+    .channel_num = BMS_LED3_RD_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t BMS_LED2_OR_config =
 {
     .outVal = 0,
     .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
@@ -548,15 +590,17 @@ const cy_stc_gpio_pin_config_t BMS_LED2_OR_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
+
 #if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t BMS_LED2_OR_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = BMS_LED2_OR_PORT_NUM,
-        .channel_num = BMS_LED2_OR_PIN,
-    };
-#endif //defined (CY_USING_HAL)
-const cy_stc_gpio_pin_config_t VCC_HOLD_config = 
+const cyhal_resource_inst_t BMS_LED2_OR_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = BMS_LED2_OR_PORT_NUM,
+    .channel_num = BMS_LED2_OR_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
+
+const cy_stc_gpio_pin_config_t VCC_HOLD_config =
 {
     .outVal = 0,
     .driveMode = CY_GPIO_DM_STRONG_IN_OFF,
@@ -572,15 +616,15 @@ const cy_stc_gpio_pin_config_t VCC_HOLD_config =
     .vrefSel = 0UL,
     .vohSel = 0UL,
 };
-#if defined (CY_USING_HAL)
-    const cyhal_resource_inst_t VCC_HOLD_obj = 
-    {
-        .type = CYHAL_RSC_GPIO,
-        .block_num = VCC_HOLD_PORT_NUM,
-        .channel_num = VCC_HOLD_PIN,
-    };
-#endif //defined (CY_USING_HAL)
 
+#if defined (CY_USING_HAL)
+const cyhal_resource_inst_t VCC_HOLD_obj =
+{
+    .type = CYHAL_RSC_GPIO,
+    .block_num = VCC_HOLD_PORT_NUM,
+    .channel_num = VCC_HOLD_PIN,
+};
+#endif /* defined (CY_USING_HAL) */
 
 void init_cycfg_pins(void)
 {
@@ -606,7 +650,6 @@ void init_cycfg_pins(void)
     Cy_GPIO_Pin_Init(BMS_LED2_OR_PORT, BMS_LED2_OR_PIN, &BMS_LED2_OR_config);
     Cy_GPIO_Pin_Init(VCC_HOLD_PORT, VCC_HOLD_PIN, &VCC_HOLD_config);
 }
-
 void reserve_cycfg_pins(void)
 {
 #if defined (CY_USING_HAL)
@@ -633,5 +676,5 @@ void reserve_cycfg_pins(void)
     cyhal_hwmgr_reserve(&BMS_LED3_RD_obj);
     cyhal_hwmgr_reserve(&BMS_LED2_OR_obj);
     cyhal_hwmgr_reserve(&VCC_HOLD_obj);
-#endif //defined (CY_USING_HAL)
+#endif /* defined (CY_USING_HAL) */
 }

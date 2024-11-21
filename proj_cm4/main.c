@@ -1312,7 +1312,7 @@ void manage_SystemAndSwitchState(){
 				case GIVER_WAIT_REDUCE_POWER:
 					// Send reduce power continuously
 					if((TIMER_COUNTER_1MS > (canLastMessageTimestamp + CAN_MINIMAL_MESSAGE_TIME + (rand() % 4)))){
-						CAN_TX_Request(ROBOT_CONTROL_CLASS_MASK, BMS_ReducePowerForHS, targetData, 1);
+						CAN_TX_Request(BMS_ReducePowerForHS, BMS_ReducePowerForHS, targetData, 1);
 					}
 					// Give rest of system time to reduce power, then send swap command
 					if(TIMER_COUNTER_1MS > (giverHotSwapTimestamp + HOTSWAP_WAIT_REDUCE_POWER_TIME)){
@@ -1430,7 +1430,7 @@ void manage_SystemAndSwitchState(){
 						// Clear robot to use power again
 						for(uint8_t i = 0; i < 5; i++){
 							if((TIMER_COUNTER_1MS > (canLastMessageTimestamp + CAN_MINIMAL_MESSAGE_TIME + (rand() % 4)))){
-								CAN_TX_Request(ROBOT_CONTROL_CLASS_MASK, BMS_EnablePowerForHS, targetData, 1);
+								CAN_TX_Request(BMS_EnablePowerForHS, BMS_EnablePowerForHS, targetData, 1);
 								cyhal_system_delay_ms(HOTSWAP_CAN_MSG_DELAY_TIME);
 							}
 						}
@@ -1956,7 +1956,7 @@ void manage_externalCommunicationBMS(){
 				targetData[2] = ((samplingTime) >> 16 & 0xFF);
 				targetData[3] = ((samplingTime) >> 24 & 0xFF);
 				// Try to send number via CAN for max 5 times before ignoring the request
-				can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_RT_Data_GetMaxLineNumber, targetData, 4);
+				can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_RT_Data_GetSamplingTime, targetData, 4);
 				if(can_status == CY_CANFD_SUCCESS)
 					isCanRequested_RT_GetSamplingTime = 0;
 				else
@@ -1975,21 +1975,24 @@ void manage_externalCommunicationBMS(){
 				case CAN_DATA_SEND_SOC:
 					targetData[0] = (uint8_t)(statusBMS.SoC);
 					targetData[1] = 0;
-					can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_Data_SOC, targetData, 2);
+					//can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_Data_SOC, targetData, 2);
+					can_status = CAN_TX_Request(BMS_Data_SOC, BMS_Data_SOC, targetData, 2);
 					if(can_status == CY_CANFD_SUCCESS)
 						canDataSendState = CAN_DATA_SEND_VOLTAGE;
 					break;
 				case CAN_DATA_SEND_VOLTAGE:
 					targetData[0] = (((uint16_t)(statusBMS.voltage*1000.0)) & 0xFF);
 					targetData[1] = (((uint16_t)(statusBMS.voltage*1000.0)) >> 8 & 0xFF);
-					can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_Data_Voltage, targetData, 2);
+					//can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_Data_Voltage, targetData, 2);
+					can_status = CAN_TX_Request(BMS_Data_Voltage, BMS_Data_Voltage, targetData, 2);
 					if(can_status == CY_CANFD_SUCCESS)
 						canDataSendState = CAN_DATA_SEND_CURRENT;
 					break;
 				case CAN_DATA_SEND_CURRENT:
 					targetData[0] = (((int16_t)statusBMS.current) & 0xFF);
 					targetData[1] = (((int16_t)statusBMS.current) >> 8 & 0xFF);
-					can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_Data_Current, targetData, 2);
+					//can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_Data_Current, targetData, 2);
+					can_status = CAN_TX_Request(BMS_Data_Current, BMS_Data_Current, targetData, 2);
 					if(can_status == CY_CANFD_SUCCESS)
 						canDataSendState = CAN_DATA_SEND_SOC;
 					break;

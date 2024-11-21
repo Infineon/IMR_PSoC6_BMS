@@ -1,0 +1,18 @@
+[
+    {
+        "asset-name": "cmsis",
+        "locked-commit": "release-v5.8.0"
+    },
+    {
+        "asset-name": "core-make",
+        "locked-commit": "release-v3.2.2"
+    },
+    {
+        "asset-name": "device-db",
+        "locked-commit": "release-v4.11.1"
+    },
+    {
+        "asset-name": "recipe-make-cat1a",
+        "locked-commit": "release-v2.1.1"
+    }
+]

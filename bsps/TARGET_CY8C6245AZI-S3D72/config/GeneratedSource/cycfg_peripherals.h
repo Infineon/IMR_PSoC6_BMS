@@ -1,30 +1,30 @@
 /*******************************************************************************
-* File Name: cycfg_peripherals.h
-*
-* Description:
-* Peripheral Hardware Block configuration
-* This file was automatically generated and should not be modified.
-* Configurator Backend 3.10.0
-* device-db 4.11.1.5194
-* mtb-pdl-cat1 3.4.0.24948
-*
-********************************************************************************
-* Copyright 2024 Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.
-* SPDX-License-Identifier: Apache-2.0
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-********************************************************************************/
+ * File Name: cycfg_peripherals.h
+ *
+ * Description:
+ * Peripheral Hardware Block configuration
+ * This file was automatically generated and should not be modified.
+ * Configurator Backend 3.30.0
+ * device-db 4.11.1.5194
+ * mtb-pdl-cat1 3.4.0.24948
+ *
+ *******************************************************************************
+ * Copyright 2024 Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation.
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 
 #if !defined(CYCFG_PERIPHERALS_H)
 #define CYCFG_PERIPHERALS_H
@@ -32,9 +32,6 @@
 #include "cycfg_notices.h"
 #include "cy_canfd.h"
 #include "cy_sysclk.h"
-#if defined (CY_USING_HAL)
-    #include "cyhal_hwmgr.h"
-#endif //defined (CY_USING_HAL)
 #include "cy_sysanalog.h"
 #include "cy_sar.h"
 #include "cycfg_routing.h"
@@ -42,9 +39,13 @@
 #include "cy_rtc.h"
 #include "cy_tcpwm_counter.h"
 
+#if defined (CY_USING_HAL)
+#include "cyhal_hwmgr.h"
+#endif /* defined (CY_USING_HAL) */
+
 #if defined(__cplusplus)
 extern "C" {
-#endif
+#endif /* defined(__cplusplus) */
 
 #define CANFD_ENABLED 1U
 #define CANFD_HW CANFD0
@@ -116,37 +117,47 @@ extern cy_stc_canfd_t0_t CANFD_T0RegisterBuffer_0;
 extern cy_stc_canfd_t1_t CANFD_T1RegisterBuffer_0;
 extern uint32_t CANFD_dataBuffer_0[];
 extern cy_stc_canfd_tx_buffer_t CANFD_txBuffer_0;
+
 #if defined (CY_USING_HAL)
-    extern const cyhal_resource_inst_t CANFD_obj;
-#endif //defined (CY_USING_HAL)
+extern const cyhal_resource_inst_t CANFD_obj;
+#endif /* defined (CY_USING_HAL) */
+
 extern const cy_stc_sysanalog_config_t pass_0_aref_0_config;
 extern const cy_stc_sar_config_t SAR_config;
+
 #if defined (CY_USING_HAL)
-    extern const cyhal_resource_inst_t SAR_obj;
-#endif //defined (CY_USING_HAL)
+extern const cyhal_resource_inst_t SAR_obj;
+#endif /* defined (CY_USING_HAL) */
+
 extern const cy_stc_scb_uart_config_t CYBSP_UART_config;
+
 #if defined (CY_USING_HAL)
-    extern const cyhal_resource_inst_t CYBSP_UART_obj;
-#endif //defined (CY_USING_HAL)
+extern const cyhal_resource_inst_t CYBSP_UART_obj;
+#endif /* defined (CY_USING_HAL) */
+
 extern const cy_stc_rtc_config_t srss_0_rtc_0_config;
+
 #if defined (CY_USING_HAL)
-    extern const cyhal_resource_inst_t srss_0_rtc_0_obj;
-#endif //defined (CY_USING_HAL)
+extern const cyhal_resource_inst_t srss_0_rtc_0_obj;
+#endif /* defined (CY_USING_HAL) */
+
 extern const cy_stc_tcpwm_counter_config_t TIMER_1MS_config;
+
 #if defined (CY_USING_HAL)
-    extern const cyhal_resource_inst_t TIMER_1MS_obj;
-#endif //defined (CY_USING_HAL)
+extern const cyhal_resource_inst_t TIMER_1MS_obj;
+#endif /* defined (CY_USING_HAL) */
+
 extern const cy_stc_tcpwm_counter_config_t TIMER_WATCHDOG_config;
+
 #if defined (CY_USING_HAL)
-    extern const cyhal_resource_inst_t TIMER_WATCHDOG_obj;
-#endif //defined (CY_USING_HAL)
+extern const cyhal_resource_inst_t TIMER_WATCHDOG_obj;
+#endif /* defined (CY_USING_HAL) */
 
 void init_cycfg_peripherals(void);
 void reserve_cycfg_peripherals(void);
 
 #if defined(__cplusplus)
 }
-#endif
-
+#endif /* defined(__cplusplus) */
 
 #endif /* CYCFG_PERIPHERALS_H */

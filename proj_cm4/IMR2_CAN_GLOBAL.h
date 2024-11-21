@@ -30,14 +30,34 @@
 /*******************************************************************************
 * CAN Commands and IDs
 *******************************************************************************/
-typedef struct IMR2_CAN_MESSAGE_STRUCT {
-	uint8_t CAN_COMMAND;			// Stores the COMMAND to identify the message type per board
-	uint8_t CAN_SENDER_ID;			// Stores the senders CAN ID for message identification
-	uint8_t CAN_DATA[6];			// Stores the CAN data associated with the corresponding CAN COMMAND
-} IMR2_CAN_MESSAGE_STRUCT_t;
+typedef enum IMR_CAN_SENSOR_LED_COMMANDS {
+	SENSOR_LED_Effect_Off			= 0x4A,		// Sending LED Effects to SENSOR_LED
+	SENSOR_LED_Effect_ChaserLight	= 0x4B,
+	SENSOR_LED_Effect_PulsingLight  = 0x4C,
+	SENSOR_LED_Effect_Color			= 0x4D,
+	SENSOR_LED_Effect_Alert			= 0x4E
+} IMR_CAN_SENSOR_LED_COMMANDS_t;
+
+typedef enum IMR_CAN_INVERTER_COMMANDS {
+	INVERTER_TargetSpeed			= 0x1D,		// Sending TargetSpeed from ROBOT_CONTROL to INVERTER
+	MOTOR_CALIBRATION				= 0x6F
+} IMR_CAN_INVERTER_COMMANDS_t;
+
+typedef enum IMR_CAN_ROBOT_CONTROL_COMMANDS {
+	ROBOT_CONTROL_EncoderValue		= 0x0E,		// Sending EncoderValues from INVERTER to ROBOT_CONTROL
+	ROBOT_CONTROL_Trajectory		= 0x2A		// Sending TrajectoryCommands from EXTERNAL to ROBOT_CONTROL
+} IMR_CAN_ROBOT_CONTROL_COMMANDS_t;
+
+typedef enum IMR_CAN_JETSON_COMMANDS {
+	JETSON_Odometrics				= 0x2B,
+	JETSON_Wheelspeed_FL			= 0x2C,
+	JETSON_Wheelspeed_FR			= 0x2D,
+	JETSON_Wheelspeed_BL			= 0x2E,
+	JETSON_Wheelspeed_BR			= 0x2F
+} IMR_CAN_JETSON_COMMANDS_t;
 
 // All command send and received by the BMS
-typedef enum IMR2_CAN_BMS_COMMANDS {
+typedef enum IMR_CAN_BMS_COMMANDS {
 	BMS_HS_Handshake 				= 0xB0,
 	BMS_HS_Swap 					= 0xB1,
 	BMS_HS_Finish 					= 0xB2,
@@ -54,22 +74,38 @@ typedef enum IMR2_CAN_BMS_COMMANDS {
 	BMS_RT_Data_GetMaxLineNumber	= 0xC3,
 	BMS_RT_Data_SetSamplingTime		= 0xC4,
 	BMS_RT_Data_GetSamplingTime		= 0xC5
-} IMR2_CAN_BMS_COMMANDS_t;
+} IMR_CAN_BMS_COMMANDS_t;
+
+typedef enum IMR_CAN_POWER_COMMANDS {
+	POWER_CH_Output_Current			= 0xF0,
+	POWER_CH_Switch_On 				= 0xF1,
+	POWER_CH_Switch_Off				= 0xF2,
+	POWER_Reserved4 				= 0xF3
+} IMR_CAN_POWER_COMMANDS_t;
+
+typedef struct IMR_CAN_MESSAGE_STRUCT {
+	uint8_t CAN_COMMAND;			// Stores the COMMAND to identify the message type per board
+	uint8_t CAN_SENDER_ID;			// Stores the senders CAN ID for message identification
+	uint8_t CAN_DATA[6];			// Stores the CAN data associated with the corresponding CAN COMMAND
+} IMR_CAN_MESSAGE_STRUCT_t;
 
 // ID of certain CAN devices
-typedef enum IMR2_CAN_CLASS_MASKS {
+typedef enum IMR_CAN_CLASS_MASKS {
 	ROBOT_CONTROL_CLASS_MASK 		= 0x10,		// Robot Control CAN Logic: (8 ... 1) 0001 XXXX			Mask: 0x10
 	INVERTER_CLASS_MASK 			= 0x60,     // Inverter CAN Logic: 		(8 ... 1) 0110 00XX			Mask: 0x60
 	SENSOR_LED_CLASS_MASK 			= 0xC0,     // Sensor LED CAN Logic: 	(8 ... 1) 1100 XXXX			Mask: 0xC0
 	BMS_CLASS_MASK					= 0x3C,		// BMS CAN Logic:			(8 ... 1) 0011 110X			Mask: 0x3C
-	POWER_CLASS_MASK				= 0xA8		// POWER CAN Logic:			(8 ... 1) 1010 100X			Mask: 0xA8
-} IMR2_CAN_CLASS_MASKS_t;
+	POWER_CLASS_MASK				= 0xA8,		// POWER CAN Logic:			(8 ... 1) 1010 100X			Mask: 0xA8
+	JETSON_CAN_ID					= 0x11,		// JETSON ID: 0x11
+	TRAJECTORY_CMD_ID				= 0x23,		// Gamepad & autonomous navigation control
+	ENCODER_DATA_CLASS_MASK			= 0x14		// Encoder data from motor: (8 ... 1) 0001 01XX
+} IMR_CAN_CLASS_MASKS_t;
 
 
 /*******************************************************************************
 * Variables
 *******************************************************************************/
-extern IMR2_CAN_MESSAGE_STRUCT_t IMR2_CAN_RX;
+extern IMR_CAN_MESSAGE_STRUCT_t IMR_CAN_RX;
 
 extern uint8_t newCanMessageReceived;
 extern uint16_t canSendErrorCount;
