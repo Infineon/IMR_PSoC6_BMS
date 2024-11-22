@@ -178,7 +178,7 @@ int main(void)
 		cyhal_gpio_write(LED_Red, 0);
 	#endif
 	PRINTF_MAIN_DEBUG("\r\n\r\n--------------------------------------------------------------------\r\n");
-	PRINTF_MAIN_DEBUG("START CM4 - Version 18.09.2024 Prerelease 1.2\r\n");
+	PRINTF_MAIN_DEBUG("START CM4 - Version 22.11.2024 Release 1.3\r\n");
 	PRINTF_MAIN_DEBUG("\t Last shutdown reason %u (on hard resets, system might restart multiple times!)\r\n", (uint16_t)cyhal_system_get_reset_reason());
 	//CYHAL_SYSTEM_RESET_NONE            = 0,   /**< No cause */
 	//CYHAL_SYSTEM_RESET_WDT             = 1,   /**< A watchdog timer (WDT) reset has occurred */
