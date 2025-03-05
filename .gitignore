@@ -147,3 +147,7 @@ Thumbs.db:encryptable
 ehthumbs.db
 ehthumbs_vista.db
 [Dd]esktop.ini
+
+# others
+proj_cm0p/.ninja_log
+proj_cm4/.ninja_log

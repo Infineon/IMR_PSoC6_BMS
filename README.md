@@ -14,7 +14,7 @@ SPDX-License-Identifier: MIT
 
 ## Overview
 
-<p>This is the official Infineon GitHub repository for Modus Toolbox software used with the demo boards for BMS control.</p>
+<p>This is the official Infineon GitHub repository for ModusToolbox software used with the demo boards for BMS control.</p>
 
 ### Features
 
@@ -100,7 +100,7 @@ This ModusToolbox project is split up into 2 subprojects, one for each processor
 
 ### How to import and use this repository
 <ol>
-<li> Install and start Modus Toolbox and select a workspace to be used (tested with Version 3.1, 3.2, and 3.3).
+<li> Install and start ModusToolbox and select a workspace to be used (tested with Version 3.1, 3.2, 3.3, and 3.4).
 <li> Import the project with the import wizard by pressing 'File' – 'Import…'. <br>
     <picture>
         <img src="./assets/images/MTB_Import_1.png">
@@ -108,71 +108,68 @@ This ModusToolbox project is split up into 2 subprojects, one for each processor
     <br>
     &nbsp;
 </li>
-<li> Select 'General' – 'Existing Project into Workspace' and press 'Next'. <br>
+<li> Select 'ModusToolbox' – 'Import Existing Application In-Place' and press 'Next'. <br>
     <picture>
         <img src="./assets/images/MTB_Import_2.png">
     </picture>
     <br>
     &nbsp;
 </li>
-<li> Select the archive file by pressing 'Browse…'. <br>
+<li> Find the Project Location by pressing 'Browse…'. <br>
     <picture>
         <img src="./assets/images/MTB_Import_3.png" >
     </picture>
     <br>
     &nbsp;
 </li>
-<li> Deselect the subprojects - only the main project must be ticked. Press 'Finish'. <br>
+<li> Select the project folder accordingly and press 'Finish'. <br>
     <picture>
         <img src="./assets/images/MTB_Import_4.png">
     </picture>
     <br>
     &nbsp;
 </li>
-<li> Right click the 'proj_cm0p' folder and press 'Import as Project'. <br>
+<li> Wait until the project is fully imported. Notice that additional folder 'mtb_shared' should be created (if there was none) when the import is completed. <br>
     <picture>
         <img src="./assets/images/MTB_Import_5.png">
     </picture>
     <br>
     &nbsp;
 </li>
-<li> Right click the 'proj_cm4' folder and press 'Import as Project'6. <br>
+<li> Right click the project folder and select 'ModusToolbox' followed by 'Library Manager 2...'. <br>
     <picture>
         <img src="./assets/images/MTB_Import_6.png">
     </picture>
     <br>
     &nbsp;
 </li>
-<li> Click on the main project item, wait a second until the quick view panel loads and start the 'Library Manager' on it. <br>
+<li> Press the 'Update' button <br>
     <picture>
         <img src="./assets/images/MTB_Import_7.png">
     </picture>
     <br>
     &nbsp;
 </li>
-<li> Press the 'Update' button <br>
+<li> When the Update is completed the sucessful messages should be displayed. If the update failed, try it again by repressing the 'Update' button. If this also fails try to clean the project, before trying it again. <br>
     <picture>
         <img src="./assets/images/MTB_Import_8.png">
     </picture>
     <br>
     &nbsp;
 </li>
-<li> If the update failed, try it again. If this also fails try to clean the project, before trying it again. <br>
+<li> Before building the project it is recommended to clean it by pressing 'Clean Application'. <br>
     <picture>
         <img src="./assets/images/MTB_Import_9.png">
-    </picture>
-    <picture>
-        <img src="./assets/images/MTB_Import_10.png">
-    </picture>
-    <picture>
-        <img src="./assets/images/MTB_Import_11.png">
     </picture>
     <br>
     &nbsp;
 </li>
-<li> It should now be possible to build the project without errors. <br>
+<li> Finally the project can be compiled by pressing 'Build Application'. <br>
     <picture>
-        <img src="./assets/images/MTB_Import_12.png">
+        <img src="./assets/images/MTB_Import_10.png">
+    </picture>
+	    <picture>
+        <img src="./assets/images/MTB_Import_11.png">
     </picture>
     <br>
     &nbsp;
