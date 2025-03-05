@@ -30,7 +30,7 @@ uint8_t calcCRC3(uint16_t data);
 #pragma once
 
 	#if defined (CY8C6245)
-		// Target definition for PSoC 6 CY8C6245 on IMR2.0 BMS set in Device Configurator on Modus Toolbox
+		// Target definition for PSoC 6 CY8C6245 on IMR BMS set in Device Configurator on Modus Toolbox
 		// 		APP				Name					Comment
 		//		UART-3.0		SCB3 					enableMsbFirst=true,
 

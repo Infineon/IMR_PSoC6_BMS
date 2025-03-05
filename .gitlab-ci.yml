@@ -1,0 +1,8 @@
+build: 
+  tags:
+    - imrrunner
+  script:
+    - echo $PWD
+    - make getlibs
+    - make build
+

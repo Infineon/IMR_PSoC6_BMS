@@ -87,7 +87,8 @@ This ModusToolbox project is split up into 2 subprojects, one for each processor
 |    ├── battery_state.h/.c               # Abstraction of battery state related algorithm (e.g. SoC & SoH)
 |    ├── diagnostic.h/.c                  # Diagnostic subsystem
 |    ├── global_management.h/.c           # Common elements between all components on CM4 core
-|    ├── IMR2_CAN_GLOBAL.h/.c             # CAN Communication
+|    ├── IMR_CAN.h/.c                     # CAN Communication (BMS specific)
+|    ├── IMR_CAN_GLOBAL.h                 # Global definitions and IDs for CAN communication within IMR
 |    ├── memory.h/.c                      # Abstraction of memory subsystem used for status and real-time data storage
 |    ├── safety_switch.h/.c               # Abstraction of safety switch related functions
 ├── proj_cm0p/                            # Sub-project for the secondary processor (e.g. user interface and now priority tasks)
@@ -99,7 +100,7 @@ This ModusToolbox project is split up into 2 subprojects, one for each processor
 
 ### How to import and use this repository
 <ol>
-<li> Install and start Modus Toolbox and select a workspace to be used (tested with Version 3.1 and 3.2).
+<li> Install and start Modus Toolbox and select a workspace to be used (tested with Version 3.1, 3.2, and 3.3).
 <li> Import the project with the import wizard by pressing 'File' – 'Import…'. <br>
     <picture>
         <img src="./assets/images/MTB_Import_1.png">

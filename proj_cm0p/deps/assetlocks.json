@@ -9,7 +9,7 @@
     },
     {
         "asset-name": "device-db",
-        "locked-commit": "release-v4.11.1"
+        "locked-commit": "release-v4.17.0"
     },
     {
         "asset-name": "recipe-make-cat1a",

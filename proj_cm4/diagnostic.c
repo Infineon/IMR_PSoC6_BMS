@@ -17,7 +17,7 @@
 #include <global_management.h>
 #include "BMS_2ED4820EM/Driver_2ED4820.h"
 #include "BMS_TLE9012/BMS_TLE9012.h"
-#include "IMR2_CAN_GLOBAL.h"
+#include "IMR_CAN.h"
 
 /*******************************************************************************
 * DEFINITIONS

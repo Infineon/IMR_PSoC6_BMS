@@ -29,7 +29,7 @@
 #pragma once
 
 	#if defined (CY8C6245)
-		// Target definition for PSoC 6 CY8C6245 on IMR2.0 BMS set in Device Configurator on Modus Toolbox
+		// Target definition for PSoC 6 CY8C6245 on IMR BMS set in Device Configurator on Modus Toolbox
 		// 		APP				Name					Comment
 		//		SPI-3.0			mSPI					SCB5 master set to 3125kHz and SCLK mode ....TODO
 		// 		PIN-3.0 		D_2ED4820_ENABLE		Enable pin APP

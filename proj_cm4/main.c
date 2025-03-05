@@ -2,7 +2,8 @@
 * File Name:   main.c (CM4)
 * Created on: 1 Jun 2024
 * Author: r. santeler (based on MTB example)
-*
+* Last change: 2025-01-20, S. Detzel
+
 * Description: This is the source code for the CM4 core in PSoC6_BatteryManagement.
 *              Here all main features of the system are implemented. Code hosted
 *              on this processor must never use blocking layouts during main loop,
@@ -47,7 +48,7 @@
 #include "memory.h"				// Memory related functions
 #include "balancing.h"			// Battery balancing related functions
 #include "diagnostic.h"			// Diagnostic subsystem
-#include "IMR2_CAN_GLOBAL.h"	// External CAN communication abstraction
+#include "IMR_CAN.h"
 // Peripheral component library's - The analog frontend tle9012, the external ADC and the memory
 #include "BMS_TLE9012/BMS_TLE9012.h"
 #include "MCP3x6x/MCP3x6x_ADC.h"
@@ -178,7 +179,7 @@ int main(void)
 		cyhal_gpio_write(LED_Red, 0);
 	#endif
 	PRINTF_MAIN_DEBUG("\r\n\r\n--------------------------------------------------------------------\r\n");
-	PRINTF_MAIN_DEBUG("START CM4 - Version 22.11.2024 Release 1.3\r\n");
+	PRINTF_MAIN_DEBUG("START CM4 - Version 05.03.2025 Release 1.4\r\n");
 	PRINTF_MAIN_DEBUG("\t Last shutdown reason %u (on hard resets, system might restart multiple times!)\r\n", (uint16_t)cyhal_system_get_reset_reason());
 	//CYHAL_SYSTEM_RESET_NONE            = 0,   /**< No cause */
 	//CYHAL_SYSTEM_RESET_WDT             = 1,   /**< A watchdog timer (WDT) reset has occurred */
@@ -781,10 +782,10 @@ void init_hotSwap(){
 		if((TIMER_COUNTER_1MS > (canLastMessageTimestamp + CAN_MINIMAL_MESSAGE_TIME + (rand() % 4)))){
 			can_status = 1;
 			if(statusBMS.slotState == SLOT_IN_SYSTEM_1){
-				can_status = CAN_TX_Request(BMS_CLASS_MASK+1, BMS_SwitchOn_Veto, targetData, 2);
+				can_status = CAN_TX_Request(BMS_SLOT_1_SWITCH_ON_VETO, targetData, 2);
 			}
 			else if(statusBMS.slotState == SLOT_IN_SYSTEM_2){
-				can_status = CAN_TX_Request(BMS_CLASS_MASK  , BMS_SwitchOn_Veto, targetData, 2);
+				can_status = CAN_TX_Request(BMS_SLOT_2_SWITCH_ON_VETO, targetData, 2);
 			}
 			if(can_status == CY_CANFD_SUCCESS){
 				switchOnVetoSendSuccessCounter++;
@@ -860,10 +861,10 @@ void init_hotSwap(){
 		can_status = 1;
 		for(int i = 0; i < 3; i++){
 			if(statusBMS.slotState == SLOT_IN_SYSTEM_1){
-				can_status = CAN_TX_Request(BMS_CLASS_MASK+1, BMS_SwitchOn_Veto, targetData, 2);
+				can_status = CAN_TX_Request(BMS_SLOT_1_SWITCH_ON_VETO, targetData, 2);
 			}
 			else if(statusBMS.slotState == SLOT_IN_SYSTEM_2){
-				can_status = CAN_TX_Request(BMS_CLASS_MASK  , BMS_SwitchOn_Veto, targetData, 2);
+				can_status = CAN_TX_Request(BMS_SLOT_2_SWITCH_ON_VETO, targetData, 2);
 			}
 			cyhal_system_delay_ms(CAN_MINIMAL_MESSAGE_TIME + (rand() % 4));
 
@@ -1289,10 +1290,10 @@ void manage_SystemAndSwitchState(){
 					// Send handshake continuously
 					if((TIMER_COUNTER_1MS > (canLastMessageTimestamp + CAN_MINIMAL_MESSAGE_TIME + (rand() % 4)))){
 						if(statusBMS.slotState == SLOT_IN_SYSTEM_1){
-							CAN_TX_Request(BMS_CLASS_MASK+1, BMS_HS_Handshake, targetData, 1);
+							CAN_TX_Request(BMS_SLOT_1_HS_HANDSHAKE, targetData, 1);
 						}
 						else if(statusBMS.slotState == SLOT_IN_SYSTEM_2){
-							CAN_TX_Request(BMS_CLASS_MASK, BMS_HS_Handshake, targetData, 1);
+							CAN_TX_Request(BMS_SLOT_2_HS_HANDSHAKE, targetData, 1);
 						}
 					}
 					// If handshake received Send command to reduce power
@@ -1312,7 +1313,7 @@ void manage_SystemAndSwitchState(){
 				case GIVER_WAIT_REDUCE_POWER:
 					// Send reduce power continuously
 					if((TIMER_COUNTER_1MS > (canLastMessageTimestamp + CAN_MINIMAL_MESSAGE_TIME + (rand() % 4)))){
-						CAN_TX_Request(BMS_ReducePowerForHS, BMS_ReducePowerForHS, targetData, 1);
+						CAN_TX_Request(BMS_REDUCE_POWER_FOR_HS, targetData, 1);
 					}
 					// Give rest of system time to reduce power, then send swap command
 					if(TIMER_COUNTER_1MS > (giverHotSwapTimestamp + HOTSWAP_WAIT_REDUCE_POWER_TIME)){
@@ -1327,10 +1328,10 @@ void manage_SystemAndSwitchState(){
 					// Send swap continuously
 					if((TIMER_COUNTER_1MS > (canLastMessageTimestamp + CAN_MINIMAL_MESSAGE_TIME + (rand() % 4)))){
 						if(statusBMS.slotState == SLOT_IN_SYSTEM_1){
-							CAN_TX_Request(BMS_CLASS_MASK+1, BMS_HS_Swap, targetData, 1);
+							CAN_TX_Request(BMS_SLOT_1_HS_SWAP, targetData, 1);
 						}
 						else if(statusBMS.slotState == SLOT_IN_SYSTEM_2){
-							CAN_TX_Request(BMS_CLASS_MASK, BMS_HS_Swap, targetData, 1);
+							CAN_TX_Request(BMS_SLOT_2_HS_SWAP, targetData, 1);
 						}
 					}
 
@@ -1345,10 +1346,10 @@ void manage_SystemAndSwitchState(){
 						for(uint8_t i = 0; i < 5; i++){
 							if((TIMER_COUNTER_1MS > (canLastMessageTimestamp + CAN_MINIMAL_MESSAGE_TIME + (rand() % 4)))){
 								if(statusBMS.slotState == SLOT_IN_SYSTEM_1){
-									CAN_TX_Request(BMS_CLASS_MASK+1, BMS_HS_Finish, targetData, 1);
+									CAN_TX_Request(BMS_SLOT_1_HS_FINISH, targetData, 1);
 								}
 								else if(statusBMS.slotState == SLOT_IN_SYSTEM_2){
-									CAN_TX_Request(BMS_CLASS_MASK, BMS_HS_Finish, targetData, 1);
+									CAN_TX_Request(BMS_SLOT_2_HS_FINISH, targetData, 1);
 								}
 								cyhal_system_delay_ms(HOTSWAP_CAN_MSG_DELAY_TIME);
 							}
@@ -1385,10 +1386,10 @@ void manage_SystemAndSwitchState(){
 					// Send handshake continuously
 					if((TIMER_COUNTER_1MS > (canLastMessageTimestamp + CAN_MINIMAL_MESSAGE_TIME + (rand() % 4)))){
 						if(statusBMS.slotState == SLOT_IN_SYSTEM_1){
-							CAN_TX_Request(BMS_CLASS_MASK+1, BMS_HS_Handshake, targetData, 1);
+							CAN_TX_Request(BMS_SLOT_1_HS_HANDSHAKE, targetData, 1);
 						}
 						else if(statusBMS.slotState == SLOT_IN_SYSTEM_2){
-							CAN_TX_Request(BMS_CLASS_MASK, BMS_HS_Handshake, targetData, 1);
+							CAN_TX_Request(BMS_SLOT_2_HS_HANDSHAKE, targetData, 1);
 						}
 					}
 
@@ -1411,10 +1412,10 @@ void manage_SystemAndSwitchState(){
 					// Send swap continuously
 					if((TIMER_COUNTER_1MS > (canLastMessageTimestamp + CAN_MINIMAL_MESSAGE_TIME + (rand() % 4)))){
 						if(statusBMS.slotState == SLOT_IN_SYSTEM_1){
-							CAN_TX_Request(BMS_CLASS_MASK+1, BMS_HS_Swap, targetData, 1);
+							CAN_TX_Request(BMS_SLOT_1_HS_SWAP, targetData, 1);
 						}
 						else if(statusBMS.slotState == SLOT_IN_SYSTEM_2){
-							CAN_TX_Request(BMS_CLASS_MASK, BMS_HS_Swap, targetData, 1);
+							CAN_TX_Request(BMS_SLOT_2_HS_SWAP, targetData, 1);
 						}
 					}
 
@@ -1430,7 +1431,7 @@ void manage_SystemAndSwitchState(){
 						// Clear robot to use power again
 						for(uint8_t i = 0; i < 5; i++){
 							if((TIMER_COUNTER_1MS > (canLastMessageTimestamp + CAN_MINIMAL_MESSAGE_TIME + (rand() % 4)))){
-								CAN_TX_Request(BMS_EnablePowerForHS, BMS_EnablePowerForHS, targetData, 1);
+								CAN_TX_Request(BMS_ENABLE_POWER_FOR_HS, targetData, 1);
 								cyhal_system_delay_ms(HOTSWAP_CAN_MSG_DELAY_TIME);
 							}
 						}
@@ -1632,7 +1633,8 @@ uint8_t manage_external_ADC_MCP3465(uint8_t waitForCurrentMeasTrigger){
     }
 
     // If an error during init occurred set last successful read timestamp to 0 in order to make error permanent
-    if(initExtADCError == 1){    	adcExtLastReadSuccessTimestamp = 0;
+    if(initExtADCError == 1){
+    	adcExtLastReadSuccessTimestamp = 0;
     }
 
     // Return that measurement was not ready
@@ -1848,10 +1850,10 @@ void manage_externalCommunicationBMS(){
 			targetData[1] = 1;
 			//can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_SwitchOn_Veto, targetData, 2);
 			if(statusBMS.slotState == SLOT_IN_SYSTEM_1){
-				can_status = CAN_TX_Request(BMS_CLASS_MASK+1, BMS_SwitchOn_Veto, targetData, 2);
+				can_status = CAN_TX_Request(BMS_SLOT_1_SWITCH_ON_VETO, targetData, 2);
 			}
 			else if(statusBMS.slotState == SLOT_IN_SYSTEM_2){
-				can_status = CAN_TX_Request(BMS_CLASS_MASK  , BMS_SwitchOn_Veto, targetData, 2);
+				can_status = CAN_TX_Request(BMS_SLOT_2_SWITCH_ON_VETO, targetData, 2);
 			}
 		}
 		else if((isCanRequested_RT_Reset |
@@ -1884,7 +1886,22 @@ void manage_externalCommunicationBMS(){
 				PRINTF_MAIN_RT_GETLINE_DEBUG("\tSending message from buffer index %u with length %u \r\n", (CanRequested_LinesCurrentIndexPart*CAN_MAX_DATA_LENGTH), dataLength);
 
 				// Send line part via CAN
-				can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_RT_Data_SendLinePart, &memoryRtDataLineBuffer[(CanRequested_LinesCurrentIndexPart*CAN_MAX_DATA_LENGTH)], dataLength);
+				if (CanRequested_LinesCurrentIndexPart==0) // Switch to Big Endian representation for CAN
+				{
+					targetData[0] = memoryRtDataLineBuffer[1];
+				    targetData[1] = memoryRtDataLineBuffer[0];
+				    targetData[2] = memoryRtDataLineBuffer[3];
+		    		targetData[3] = memoryRtDataLineBuffer[2];
+	   				targetData[4] = memoryRtDataLineBuffer[5];
+	   				targetData[5] = memoryRtDataLineBuffer[4];
+					targetData[6] = memoryRtDataLineBuffer[7];
+					targetData[7] = memoryRtDataLineBuffer[6];
+				} else
+				{
+					targetData[0] = memoryRtDataLineBuffer[9];
+				    targetData[1] = memoryRtDataLineBuffer[8];
+				}
+				can_status = CAN_TX_Request(BMS_RT_DATA_SENDLINEPART, targetData, dataLength);
 				if(can_status == CY_CANFD_SUCCESS){
 					CanRequested_LinesCurrentIndexPart++;
 				}
@@ -1910,10 +1927,10 @@ void manage_externalCommunicationBMS(){
 			}
 			else if(isCanRequested_RT_GetStoredLineNumber >= 1){
 				uint16_t storedLineNumber = nextMemoryRtLineAddressOffset/MEM_SIZE_RT_DATA;
-				targetData[0] = ((storedLineNumber) & 0xFF);
-				targetData[1] = ((storedLineNumber) >> 8 & 0xFF);
+				targetData[0] = ((storedLineNumber) >> 8 & 0xFF);
+				targetData[1] = ((storedLineNumber) & 0xFF);
 				// Try to send number via CAN for max 5 times before ignoring the request
-				can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_RT_Data_GetStoredLineNumber, targetData, 2);
+				can_status = CAN_TX_Request(BMS_RT_DATA_GETSTOREDLINENUMBER, targetData, 2);
 				if(can_status == CY_CANFD_SUCCESS)
 					isCanRequested_RT_GetStoredLineNumber = 0;
 				else
@@ -1924,10 +1941,10 @@ void manage_externalCommunicationBMS(){
 			}
 			else if(isCanRequested_RT_GetMaxLineNumber >= 1){
 				uint16_t maxLineNumber = MEM_SIZE_MAX_LINES;
-				targetData[0] = ((maxLineNumber) & 0xFF);
-				targetData[1] = ((maxLineNumber) >> 8 & 0xFF);
+				targetData[0] = ((maxLineNumber) >> 8 & 0xFF);
+				targetData[1] = ((maxLineNumber) & 0xFF);
 				// Try to send number via CAN for max 5 times before ignoring the request
-				can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_RT_Data_GetMaxLineNumber, targetData, 2);
+				can_status = CAN_TX_Request(BMS_RT_DATA_GETMAXLINENUMBER, targetData, 2);
 				if(can_status == CY_CANFD_SUCCESS)
 					isCanRequested_RT_GetMaxLineNumber = 0;
 				else
@@ -1951,12 +1968,12 @@ void manage_externalCommunicationBMS(){
 			}
 			else if(isCanRequested_RT_GetSamplingTime >= 1){
 				uint32_t samplingTime = memoryRtDataRefreshTime;
-				targetData[0] = ((samplingTime) & 0xFF);
-				targetData[1] = ((samplingTime) >> 8 & 0xFF);
-				targetData[2] = ((samplingTime) >> 16 & 0xFF);
-				targetData[3] = ((samplingTime) >> 24 & 0xFF);
+				targetData[0] = ((samplingTime) >> 24 & 0xFF);
+				targetData[1] = ((samplingTime) >> 16 & 0xFF);
+				targetData[2] = ((samplingTime) >> 8 & 0xFF);
+				targetData[3] = ((samplingTime) >> 0 & 0xFF);
 				// Try to send number via CAN for max 5 times before ignoring the request
-				can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_RT_Data_GetSamplingTime, targetData, 4);
+				can_status = CAN_TX_Request(BMS_RT_DATA_GETSAMPLINGTIME, targetData, 4);
 				if(can_status == CY_CANFD_SUCCESS)
 					isCanRequested_RT_GetSamplingTime = 0;
 				else
@@ -1971,35 +1988,15 @@ void manage_externalCommunicationBMS(){
 			canDataRefreshTimestamp = TIMER_COUNTER_1MS;
 
 			// Send current data and increment data index
-			switch (canDataSendState) {
-				case CAN_DATA_SEND_SOC:
-					targetData[0] = (uint8_t)(statusBMS.SoC);
-					targetData[1] = 0;
-					//can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_Data_SOC, targetData, 2);
-					can_status = CAN_TX_Request(BMS_Data_SOC, BMS_Data_SOC, targetData, 2);
-					if(can_status == CY_CANFD_SUCCESS)
-						canDataSendState = CAN_DATA_SEND_VOLTAGE;
-					break;
-				case CAN_DATA_SEND_VOLTAGE:
-					targetData[0] = (((uint16_t)(statusBMS.voltage*1000.0)) & 0xFF);
-					targetData[1] = (((uint16_t)(statusBMS.voltage*1000.0)) >> 8 & 0xFF);
-					//can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_Data_Voltage, targetData, 2);
-					can_status = CAN_TX_Request(BMS_Data_Voltage, BMS_Data_Voltage, targetData, 2);
-					if(can_status == CY_CANFD_SUCCESS)
-						canDataSendState = CAN_DATA_SEND_CURRENT;
-					break;
-				case CAN_DATA_SEND_CURRENT:
-					targetData[0] = (((int16_t)statusBMS.current) & 0xFF);
-					targetData[1] = (((int16_t)statusBMS.current) >> 8 & 0xFF);
-					//can_status = CAN_TX_Request((ROBOT_CONTROL_CLASS_MASK | 0x00), BMS_Data_Current, targetData, 2);
-					can_status = CAN_TX_Request(BMS_Data_Current, BMS_Data_Current, targetData, 2);
-					if(can_status == CY_CANFD_SUCCESS)
-						canDataSendState = CAN_DATA_SEND_SOC;
-					break;
-				default:
-					break;
-			}
-
+			targetData[0] = (uint8_t)(statusBMS.SoC);
+			targetData[1] = (((uint16_t)(statusBMS.voltage*1000.0)) >> 8 & 0xFF);
+			targetData[2] = (((uint16_t)(statusBMS.voltage*1000.0)) & 0xFF);
+			targetData[3] = (((int16_t)statusBMS.current) >> 8 & 0xFF);
+			targetData[4] = (((int16_t)statusBMS.current) & 0xFF);
+			targetData[5] = (uint8_t)sh_pub_soh;
+			targetData[6] = (((uint16_t)(TIMER_COUNTER_1MS/1000)) >> 8 & 0xFF);
+			targetData[7] = (((uint16_t)(TIMER_COUNTER_1MS/1000)) & 0xFF);
+			can_status = CAN_TX_Request(BMS_SLOT_1_STATE+statusBMS.slotState-1, targetData, 8);
 		}
 
 		// Turn on blue led if communication successful or off if failed
@@ -2047,8 +2044,6 @@ void manage_slotState(uint8_t ignoreDebounce){
 		if(statusBMS.slotState != SLOT_NONE){
 			PRINTF_MAIN_DEBUG("BMS is not in base: %ldmV\r\n", adc_coding_res_mV);
 
-			// Refresh own CAN ID
-			set_canfd_ID_based_on_slot();
 		}
 		// Change State
 		statusBMS.slotState = SLOT_NONE;
@@ -2068,8 +2063,6 @@ void manage_slotState(uint8_t ignoreDebounce){
 					// Change State
 					statusBMS.slotState = SLOT_IN_CHARGER;
 
-					// Refresh own CAN ID
-					set_canfd_ID_based_on_slot();
 				}
 			}
 			else if(adc_coding_res_mV > CODING_RES_CHARGER_BELOW_mV && adc_coding_res_mV < CODING_RES_MAINBOARD_1_BELOW_mV && statusBMS.slotState != SLOT_IN_SYSTEM_1){
@@ -2078,8 +2071,6 @@ void manage_slotState(uint8_t ignoreDebounce){
 				// Change State
 				statusBMS.slotState = SLOT_IN_SYSTEM_1;
 
-				// Refresh own CAN ID
-				set_canfd_ID_based_on_slot();
 			}
 			else if(adc_coding_res_mV > CODING_RES_MAINBOARD_1_BELOW_mV && adc_coding_res_mV < CODING_RES_MAINBOARD_2_BELOW_mV && statusBMS.slotState != SLOT_IN_SYSTEM_2){
 				PRINTF_MAIN_DEBUG("BMS is in IMR mainboard 2: %ldmV\r\n", adc_coding_res_mV);
@@ -2087,8 +2078,6 @@ void manage_slotState(uint8_t ignoreDebounce){
 				// Change State
 				statusBMS.slotState = SLOT_IN_SYSTEM_2;
 
-				// Refresh own CAN ID
-				set_canfd_ID_based_on_slot();
 			}
 		// DEFAULT: Detect all slot state only based on coding resistor
 		#else
@@ -2098,8 +2087,6 @@ void manage_slotState(uint8_t ignoreDebounce){
 				// Change State
 				statusBMS.slotState = SLOT_IN_SYSTEM_1;
 
-				// Refresh own CAN ID
-				set_canfd_ID_based_on_slot();
 			}
 			else if(adc_coding_res_mV > CODING_RES_MAINBOARD_1_BELOW_mV && adc_coding_res_mV < CODING_RES_MAINBOARD_2_BELOW_mV && statusBMS.slotState != SLOT_IN_SYSTEM_2){
 				PRINTF_MAIN_DEBUG("BMS is in IMR mainboard 2: %ldmV\r\n", adc_coding_res_mV);
@@ -2107,8 +2094,6 @@ void manage_slotState(uint8_t ignoreDebounce){
 				// Change State
 				statusBMS.slotState = SLOT_IN_SYSTEM_2;
 
-				// Refresh own CAN ID
-				set_canfd_ID_based_on_slot();
 			}
 			else if(adc_coding_res_mV < CODING_RES_CHARGER_BELOW_mV && statusBMS.slotState != SLOT_IN_CHARGER){
 				PRINTF_MAIN_DEBUG("BMS is in charger: %ldmV\r\n", adc_coding_res_mV);
@@ -2116,8 +2101,6 @@ void manage_slotState(uint8_t ignoreDebounce){
 				// Change State
 				statusBMS.slotState = SLOT_IN_CHARGER;
 
-				// Refresh own CAN ID
-				set_canfd_ID_based_on_slot();
 			}
 		#endif
 	}
