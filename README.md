@@ -129,47 +129,54 @@ This ModusToolbox project is split up into 2 subprojects, one for each processor
     <br>
     &nbsp;
 </li>
-<li> Wait until the project is fully imported. Notice that additional folder 'mtb_shared' should be created (if there was none) when the import is completed. <br>
+<li> Wait until the project is fully imported. <br>
     <picture>
         <img src="./assets/images/MTB_Import_5.png">
     </picture>
     <br>
     &nbsp;
 </li>
-<li> Right click the project folder and select 'ModusToolbox' followed by 'Library Manager 2...'. <br>
+<li> Notice that additional folder 'mtb_shared' should be created (if there was none) when the import is completed. <br>
     <picture>
         <img src="./assets/images/MTB_Import_6.png">
     </picture>
     <br>
     &nbsp;
 </li>
-<li> Press the 'Update' button <br>
+<li> Right click the project folder and select 'ModusToolbox' followed by 'Library Manager 2...'. <br>
     <picture>
         <img src="./assets/images/MTB_Import_7.png">
     </picture>
     <br>
     &nbsp;
 </li>
-<li> When the Update is completed the sucessful messages should be displayed. If the update failed, try it again by repressing the 'Update' button. If this also fails try to clean the project, before trying it again. <br>
+<li> Press the 'Update' button <br>
     <picture>
         <img src="./assets/images/MTB_Import_8.png">
     </picture>
     <br>
     &nbsp;
 </li>
-<li> Before building the project it is recommended to clean it by pressing 'Clean Application'. <br>
+<li> When the Update is completed the sucessful messages should be displayed. If the update failed, try it again by repressing the 'Update' button. If this also fails try to clean the project, before trying it again. <br>
     <picture>
         <img src="./assets/images/MTB_Import_9.png">
     </picture>
     <br>
     &nbsp;
 </li>
-<li> Finally the project can be compiled by pressing 'Build Application'. <br>
+<li> Before building the project it is recommended to clean it by pressing 'Clean Application'. <br>
     <picture>
         <img src="./assets/images/MTB_Import_10.png">
     </picture>
-	    <picture>
+    <br>
+    &nbsp;
+</li>
+<li> Finally the project can be compiled by pressing 'Build Application'. <br>
+    <picture>
         <img src="./assets/images/MTB_Import_11.png">
+    </picture>
+	    <picture>
+        <img src="./assets/images/MTB_Import_12.png">
     </picture>
     <br>
     &nbsp;
