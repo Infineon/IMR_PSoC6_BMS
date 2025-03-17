@@ -13,11 +13,11 @@ SPDX-License-Identifier: MIT
 
 ## Overview
 
-<p>This is the official Infineon GitHub repository for ModusToolbox™ software used with the demo boards for BMS control.</p>
+<p>This is the official Infineon GitHub repository for ModusToolbox™ software used with the demo boards for Battery Management System (BMS) control.</p>
 
 ### Features
 
-- 12 cells in series battery management system (BMS)
+- 12 cells in series BMS
 - Low-power e-Paper display for long-term data display at power off
 - Dual core CPU (Arm® Cortex®-M4/M0+)
 - Extensible, non-blocking software layout
@@ -145,7 +145,7 @@ This ModusToolbox project is split up into 2 subprojects, one for each processor
 
 ### How to import and use this repository
 <ol>
-<li> Install and start ModusToolbox™ and select a workspace to be used (tested with Version 3.1, 3.2, 3.3, and 3.4).
+<li> Install and start ModusToolbox™ and select a workspace to be used (tested with Version 3.1, 3.2, 3.3, and 3.4).<br><br>
 <li> Import the project with the import wizard by pressing 'File' – 'Import…'. <br><br>
     <picture>
         <img src="./assets/images/MTB_Import_1.png">

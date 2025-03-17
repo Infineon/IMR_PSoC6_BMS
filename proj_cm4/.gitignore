@@ -1,1 +1,3 @@
 .cache/
+.ninja_lock
+.ninja_log
