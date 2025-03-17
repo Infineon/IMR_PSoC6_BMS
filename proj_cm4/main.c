@@ -4,25 +4,27 @@
 * Author: r. santeler (based on MTB example)
 * Last change: 2025-01-20, S. Detzel
 
-* Description: This is the source code for the CM4 core in PSoC6_BatteryManagement.
-*              Here all main features of the system are implemented. Code hosted
-*              on this processor must never use blocking layouts during main loop,
-*              due to safety critical functions. Code run once during initialization
-*              can be blocking but must always be timeout terminated to make sure
-*              the system enters main loop.
+* Description:
+* 		This is the source code for the CM4 core in PSoC6_BatteryManagement.
+* 		Here all main features of the system are implemented.
+* 		Code hosted on this processor must never use blocking layouts
+* 		during main loop, due to safety critical functions.
+* 		Code run once during initialization can be blocking but must always
+* 		be timeout terminated to make sure the system enters main loop.
 *
-*              The main functions are described in this file. Diagnostic, CAN,
-*              battery state management and safety switch functions are outsourced
-*              to different files. Functions, definitions and objects that must be
-*              accessed from all components are found in global_management.
+* 		The main functions are described in this file. Diagnostic, CAN,
+* 		battery state management and safety switch functions are out-sourced
+* 		to different files. Functions, definitions and objects that must be
+* 		accessed from all components are found in global_management.
 *
-*              All settings and parameters can be manipulated centrally in the
-*              "SETTING DEFINITION" section of global_management.h
+* 		All settings and parameters can be manipulated centrally in the
+* 		"SETTING DEFINITION" section of global_management.h
 *
-*              Note that commonly needed variables are grouped into statusBMS,
-*              setupBMS and batteryState.
-*              Note that "ram_public.h" and "ipc_def.h" is used for
-*              communication between processors and the public RAM area.
+* 		Note that commonly needed variables are grouped into statusBMS,
+* 		setupBMS and batteryState.
+*
+* 		Note that "ram_public.h" and "ipc_def.h" is used for
+* 		communication between processors and the public RAM area.
 *
 *******************************************************************************
  * (c) (2024), Cypress Semiconductor Corporation (an Infineon company) or
