@@ -246,7 +246,7 @@ int main(void)
 	#endif
 	PRINTF_MAIN_DEBUG("\r\n\r\n"
 			"----------------------------------------------------\r\n");
-	PRINTF_MAIN_DEBUG("START CM4 - Version 17.03.2025 Release 1.5\r\n");
+	PRINTF_MAIN_DEBUG("START CM4 - Version 18.03.2025 Release 1.6\r\n");
 	PRINTF_MAIN_DEBUG("\t Last shutdown reason %u (on hard resets, "
 			"system might restart multiple times!)\r\n",
 			(uint16_t)cyhal_system_get_reset_reason());
