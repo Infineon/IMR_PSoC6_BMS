@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration app="BACKEND" formatVersion="14" lastSavedWith="Configurator Backend" lastSavedWithVersion="3.30.0" toolsPackage="ModusToolbox 3.3.0" xmlns="http://cypress.com/xsd/cydesignfile_v5">
+<Configuration app="BACKEND" formatVersion="14" lastSavedWith="Configurator Backend" lastSavedWithVersion="3.40.0" toolsPackage="ModusToolbox 3.4.0" xmlns="http://cypress.com/xsd/cydesignfile_v5">
     <Devices>
         <Device mpn="CY8C6245AZI-S3D72">
             <BlockConfig>
@@ -133,11 +133,7 @@
                         <Alias value="TIMER_CM0_REFRESH"/>
                     </Aliases>
                 </Block>
-                <Block location="tcpwm[0].cnt[3]">
-                    <Aliases>
-                        <Alias value="TIMER_CM0_1S"/>
-                    </Aliases>
-                </Block>
+                <Block location="tcpwm[0].cnt[3]"/>
                 <Personality template="canfd" version="3.0">
                     <Block location="canfd[0].chan[0]" locked="true">
                         <Aliases>
@@ -2720,7 +2716,7 @@
                     <Block location="peri[0].div_16[0]" locked="true"/>
                     <Parameters>
                         <Param id="fracDivider" value="0"/>
-                        <Param id="intDivider" value="947"/>
+                        <Param id="intDivider" value="50000"/>
                         <Param id="startOnReset" value="true"/>
                     </Parameters>
                 </Personality>
@@ -2781,6 +2777,7 @@
                         <Param id="DataWidth" value="8"/>
                         <Param id="DropOnFrameErr" value="false"/>
                         <Param id="DropOnParityErr" value="false"/>
+                        <Param id="EnableHalfDuplex" value="false"/>
                         <Param id="EnableInputFilter" value="false"/>
                         <Param id="EnableTxEn" value="false"/>
                         <Param id="FlowControl" value="false"/>

@@ -145,6 +145,10 @@ uint8_t initExtADCError = 0;
 uint8_t SafetySwitchInterrupt_SaveStateSet = DIRECT_SAVESTATE_ON_INTERRUPT;
 uint8_t AnalogFrontendInterrupt_SaveStateSet = DIRECT_SAVESTATE_ON_INTERRUPT;
 
+uint8_t* git_commit_hash = (uint8_t*)GIT_COMMIT_HASH;
+#if (EXT_DATALOG_ENABLED)
+uint32_t datalog_refreshTimestamp = 0;
+#endif
 
 /******************************************************************************
 * Function Prototypes
@@ -246,7 +250,7 @@ int main(void)
 	#endif
 	PRINTF_MAIN_DEBUG("\r\n\r\n"
 			"----------------------------------------------------\r\n");
-	PRINTF_MAIN_DEBUG("START CM4 - Version 18.03.2025 Release 1.6\r\n");
+	PRINTF_MAIN_DEBUG("START CM4 - Version 17.03.2025 Release 1.5\r\n");
 	PRINTF_MAIN_DEBUG("\t Last shutdown reason %u (on hard resets, "
 			"system might restart multiple times!)\r\n",
 			(uint16_t)cyhal_system_get_reset_reason());
@@ -335,6 +339,10 @@ int main(void)
 
     // Initialize CAN communication
 	init_CAN();
+
+	// Send out commit hash of currently flashed software
+	CAN_TX_Request(COMMIT_HASH, (uint8_t*)git_commit_hash, 7);
+
 	// Determine initial role of BMS
 	init_hotSwap();
 
@@ -555,7 +563,7 @@ void init_Timer_RTC()
 	// Init RTC
 	Cy_RTC_Init(&srss_0_rtc_0_config);
 
-	// Enable millisecond timer
+	// Enable 1msec & 1sec timers
 	cy_en_tcpwm_status_t result_timer =
 			Cy_TCPWM_Counter_Init(TIMER_1MS_HW, TIMER_1MS_NUM,
 					&TIMER_1MS_config);
@@ -566,7 +574,6 @@ void init_Timer_RTC()
 	Cy_TCPWM_Counter_Enable(TIMER_1MS_HW, TIMER_1MS_NUM);
 	// Then start the counter
 	Cy_TCPWM_TriggerStart_Single(TIMER_1MS_HW, TIMER_1MS_NUM);
-
 
 	// Init watchdog interrupt
 	cy_rslt_t result =
@@ -2681,7 +2688,39 @@ void manage_externalCommunicationBMS(){
 			can_status = CAN_TX_Request(BMS_SLOT_1_STATE+statusBMS.slotState-1,
 					targetData, 8);
 		}
-
+#if (EXT_DATALOG_ENABLED)
+		else if(TIMER_COUNTER_1MS > (datalog_refreshTimestamp +
+				EXTERNAL_COMMUNICATION_TIME)){
+			datalog_refreshTimestamp = TIMER_COUNTER_1MS;
+			// statusBMS.current in mA & temperatures in deg.C
+			for (int i = 0; i < 4; i++){
+				targetData[i] = (((int32_t)(statusBMS.current*100.0))
+						>> (8*(3-i)) & 0xFF);
+			}
+			targetData[4] = (((int16_t)(tle9012_nodes[0].temperatures[0]*100.0))
+					>> 8 & 0xFF);
+			targetData[5] = (((int16_t)(tle9012_nodes[0].temperatures[0]*100.0))
+					& 0xFF);
+			targetData[6] = (((int16_t)(tle9012_nodes[0].temperatures[3]*100.0))
+					>> 8 & 0xFF);
+			targetData[7] = (((int16_t)(tle9012_nodes[0].temperatures[3]*100.0))
+					& 0xFF);
+			can_status = CAN_TX_Request(BMS_SLOT_1_CURR_TEMP+
+					statusBMS.slotState-1, targetData, 8);
+			Cy_SysLib_Delay(1);
+			for (int i = 0; i < 3; i++){
+				for (int j = 0; j < 4; j++){
+					targetData[j*2] =
+							tle9012_nodes[0].cell_voltages[i*4+j] >> 8 & 0xFF;
+					targetData[j*2+1] =
+							tle9012_nodes[0].cell_voltages[i*4+j] & 0xFF;
+				}
+				can_status = CAN_TX_Request(BMS_SLOT_1_CELLV0_3+
+						statusBMS.slotState-1+(16*i), targetData, 8);
+				Cy_SysLib_Delay(1);
+			}
+		}
+#endif
 		// Turn on blue led if communication successful or off if failed
 		if(can_status != UINT8_MAX){
 			if(canSendSuccessCount > 2)
@@ -2712,10 +2751,13 @@ void manage_timer(){
 		Cy_TCPWM_Counter_SetCounter(TIMER_1MS_HW, TIMER_1MS_NUM, 0);
 		Cy_TCPWM_Counter_Enable(TIMER_1MS_HW, TIMER_1MS_NUM);
 		Cy_TCPWM_TriggerStart_Single(TIMER_1MS_HW, TIMER_1MS_NUM);
-
-		// Reset all time storages //TODO low priority,
-								   //does only happen after
-								   //days of continuous run
+#if (EXT_DATALOG_ENABLED)
+		datalog_refreshTimestamp = 0;
+#endif
+		canDataRefreshTimestamp = 0;
+		// Reset all other time storages //TODO low priority,
+								   	   	 //does only happen after
+								   	     //49.7 days of continuous run
 	}
 }
 
