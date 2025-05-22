@@ -250,7 +250,7 @@ int main(void)
 	#endif
 	PRINTF_MAIN_DEBUG("\r\n\r\n"
 			"----------------------------------------------------\r\n");
-	PRINTF_MAIN_DEBUG("START CM4 - Version 10.04.2025 Release 1.7\r\n");
+	PRINTF_MAIN_DEBUG("START CM4 - Version 22.05.2025 Release 1.8\r\n");
 	PRINTF_MAIN_DEBUG("\t Last shutdown reason %u (on hard resets, "
 			"system might restart multiple times!)\r\n",
 			(uint16_t)cyhal_system_get_reset_reason());
@@ -2671,27 +2671,30 @@ void manage_externalCommunicationBMS(){
 						"get sampling time\r\n");
 			}
 		}
+#if (EXT_DATALOG_ENABLED)
+		else if(TIMER_COUNTER_1MS > (datalog_refreshTimestamp +
+				(EXTERNAL_COMMUNICATION_TIME/10))){
+			// Store current time as last execution time
+			datalog_refreshTimestamp = TIMER_COUNTER_1MS;
+#else
 		else if(TIMER_COUNTER_1MS > (canDataRefreshTimestamp +
 				CAN_DATA_REFRESH_TIME)){
 			// Store current time as last execution time
 			canDataRefreshTimestamp = TIMER_COUNTER_1MS;
-
+#endif
 			// Send current data and increment data index
 			targetData[0] = (uint8_t)(statusBMS.SoC);
 			targetData[1] = (((uint16_t)(statusBMS.voltage*1000.0)) >> 8 & 0xFF);
 			targetData[2] = (((uint16_t)(statusBMS.voltage*1000.0)) & 0xFF);
 			targetData[3] = (((int16_t)statusBMS.current) >> 8 & 0xFF);
 			targetData[4] = (((int16_t)statusBMS.current) & 0xFF);
-			targetData[5] = (uint8_t)sh_pub_soh;
+			targetData[5] = (uint8_t)(statusBMS.SoH);
 			targetData[6] = (((uint16_t)(TIMER_COUNTER_1MS/1000)) >> 8 & 0xFF);
 			targetData[7] = (((uint16_t)(TIMER_COUNTER_1MS/1000)) & 0xFF);
 			can_status = CAN_TX_Request(BMS_SLOT_1_STATE+statusBMS.slotState-1,
 					targetData, 8);
-		}
 #if (EXT_DATALOG_ENABLED)
-		else if(TIMER_COUNTER_1MS > (datalog_refreshTimestamp +
-				EXTERNAL_COMMUNICATION_TIME)){
-			datalog_refreshTimestamp = TIMER_COUNTER_1MS;
+			Cy_SysLib_Delay(1);
 			// statusBMS.current in mA & temperatures in deg.C
 			for (int i = 0; i < 4; i++){
 				targetData[i] = (((int32_t)(statusBMS.current*100.0))
@@ -2719,8 +2722,8 @@ void manage_externalCommunicationBMS(){
 						statusBMS.slotState-1+(16*i), targetData, 8);
 				Cy_SysLib_Delay(1);
 			}
-		}
 #endif
+		}
 		// Turn on blue led if communication successful or off if failed
 		if(can_status != UINT8_MAX){
 			if(canSendSuccessCount > 2)
@@ -2730,7 +2733,6 @@ void manage_externalCommunicationBMS(){
 				//CAN_Reset();
 			}
 		}
-
 		// Write debug message if CAN message send fails
 		//if(can_status != CY_CANFD_SUCCESS){
 		//	PRINTF_MAIN_DEBUG("CAN send failed %d\r\n", can_status);
